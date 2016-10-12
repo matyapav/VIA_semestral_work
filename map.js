@@ -105,8 +105,6 @@ function showInfoAboutPlace(place){
     }else{
         document.getElementById('place-open').innerText = "-"
     }
-
-    document.getElementById('actions').style = "visibility: visible";
     console.log(place)
 }
 
