@@ -110,6 +110,8 @@ function showInfoAboutPlace(place){
     if(isLoggedIn){
         document.getElementById('actions').style = "visibility: visible"
     }
+
+    somePlaceIsSelected = true;
     console.log(place)
 }
 

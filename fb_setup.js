@@ -14,6 +14,9 @@ function statusChangeCallback(response) {
         testAPI();
         document.getElementById('login_btn').style = "display: none";
         document.getElementById('logout_btn').style = "display: block";
+        if(somePlaceIsSelected){
+            document.getElementById('actions').style = "visibility: visible";
+        }
         isLoggedIn = true;
 
     } else if (response.status === 'not_authorized') {
