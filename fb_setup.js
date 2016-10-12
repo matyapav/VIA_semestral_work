@@ -10,7 +10,7 @@ function statusChangeCallback(response) {
         // Logged into your app and Facebook.
         testAPI();
         document.getElementById('actions').style = "visibility: visible";
-        document.getElementById('login_btn').style = "visibility: none";
+        document.getElementById('login_btn').style = "visibility: hidden";
         document.getElementById('logout_btn').style = "visibility: visible";
     } else if (response.status === 'not_authorized') {
         // The person is logged into Facebook, but not your app.
@@ -26,6 +26,11 @@ function statusChangeCallback(response) {
         document.getElementById('login_btn').style = "visibility: visible";
         document.getElementById('logout_btn').style = "visibility: hidden";
     }
+}
+
+function subscribeToEvents() {
+    FB.Event.subscribe('auth.login', login_event);
+    FB.Event.subscribe('auth.logout', logout_event);
 }
 
 // This function is called when someone finishes with the Login
@@ -71,8 +76,6 @@ window.fbAsyncInit = function() {
     js = d.createElement(s); js.id = id;
     js.src = "//connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
-    FB.Event.subscribe('auth.login', login_event);
-    FB.Event.subscribe('auth.logout', logout_event);
 }(document, 'script', 'facebook-jssdk'));
 
 // Here we run a very simple test of the Graph API after login is
