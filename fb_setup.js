@@ -65,6 +65,8 @@ window.fbAsyncInit = function() {
     js = d.createElement(s); js.id = id;
     js.src = "//connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
+    FB.Event.subscribe('auth.login', login_event);
+    FB.Event.subscribe('auth.logout', logout_event);
 }(document, 'script', 'facebook-jssdk'));
 
 // Here we run a very simple test of the Graph API after login is
@@ -76,4 +78,21 @@ function testAPI() {
         document.getElementById('status').innerHTML =
             'Thanks for logging in, ' + response.name + '!';
     });
+}
+
+// In your JavaScript code:
+var login_event = function(response) {
+    console.log("login_event");
+    console.log(response.status);
+    console.log(response);
+    document.getElementById("login_btn").style = "visibility: hidden"
+    document.getElementById("logout_btn").style = "visibility: visible"
+}
+
+var logout_event = function(response) {
+    console.log("logout_event");
+    console.log(response.status);
+    console.log(response);
+    document.getElementById("login_btn").style = "visibility: visible"
+    document.getElementById("logout_btn").style = "visibility: hidden"
 }

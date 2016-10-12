@@ -18,8 +18,8 @@
     <input id="radius-input" type="number" min="0", max="50000" placeholder="Nastavte radius" value="500" style="width: 120px; text-align: center"/>
 </div>
 <div id="login" style="position: absolute; right: 20px; top: 20px">
-    <fb:login-button autologoutlink="true" scope="public_profile,email" onlogin="checkLoginState();">
-    </fb:login-button>
+    <input type="button" id="login_btn" value="Login" onclick="FB.login();">
+    <input type="button" id="logout_btn" value="Logout" onclick="FB.logout();" style="visibility: hidden">
     <div id="status"></div>
 </button></div>
 <div id="map" style="width:100%;height:500px"></div>
