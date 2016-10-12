@@ -97,9 +97,15 @@ function createMarkerOnMap(position, title, pinColor) {
 }
 
 function showInfoAboutPlace(place){
+
     document.getElementById('place-name').innerText = place.name;
     document.getElementById('place-address').innerText = place.vicinity;
-    document.getElementById('place-open').innerText = place.opening_hours.open_now? 'Ano':'Ne';
+    if(place.opening_hours != null){
+        document.getElementById('place-open').innerText = place.opening_hours.open_now? 'Ano':'Ne';
+    }else{
+        document.getElementById('place-open').innerText = "-"
+    }
+
     document.getElementById('actions').style = "visibility: visible";
     console.log(place)
 }
