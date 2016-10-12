@@ -1,4 +1,7 @@
+var isLoggedIn = false;
+
 // This is called with the results from from FB.getLoginStatus().
+
 function statusChangeCallback(response) {
     console.log('statusChangeCallback');
     console.log(response);
@@ -11,17 +14,25 @@ function statusChangeCallback(response) {
         testAPI();
         document.getElementById('login_btn').style = "display: none";
         document.getElementById('logout_btn').style = "display: block";
+        isLoggedIn = true;
+
     } else if (response.status === 'not_authorized') {
         // The person is logged into Facebook, but not your app.
         document.getElementById('status').innerHTML = 'Přihlašte se do této aplikace.';
         document.getElementById('login_btn').style = "display: block";
         document.getElementById('logout_btn').style = "display: none";
+        document.getElementById('actions').style = "visibility: hidden";
+        isLoggedIn = false;
+
     } else {
         // The person is not logged into Facebook, so we're not sure if
         // they are logged into this app or not.
         document.getElementById('status').innerHTML = 'Přihlašte se pomocí Facebooku.';
         document.getElementById('login_btn').style = "display: block";
         document.getElementById('logout_btn').style = "display: none";
+        document.getElementById('actions').style = "visibility: hidden";
+        isLoggedIn = false;
+
     }
 }
 
@@ -30,16 +41,6 @@ function subscribeToEvents() {
     FB.Event.subscribe('auth.logout', logout_event);
 }
 
-
-function isLoggedIn() {
-    FB.getLoginStatus(function (response) {
-        if(response.status == "connected"){
-            return true;
-        }else{
-            return false;
-        }
-    })
-}
 // This function is called when someone finishes with the Login
 // Button.  See the onlogin handler attached to it in the sample
 // code below.

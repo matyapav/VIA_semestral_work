@@ -3,6 +3,7 @@ var service;
 var actualPosition;
 var markers = [];
 var defaultMarkerColor = "FE7569";
+var somePlaceIsSelected = false;
 
 
 function initMap() {
@@ -105,7 +106,8 @@ function showInfoAboutPlace(place){
     }else{
         document.getElementById('place-open').innerText = "-"
     }
-    if(isLoggedIn()){
+
+    if(isLoggedIn){
         document.getElementById('actions').style = "visibility: visible"
     }
     console.log(place)
