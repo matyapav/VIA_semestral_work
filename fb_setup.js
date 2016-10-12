@@ -9,22 +9,19 @@ function statusChangeCallback(response) {
     if (response.status === 'connected') {
         // Logged into your app and Facebook.
         testAPI();
-        document.getElementById('actions').style = "visibility: visible";
-        document.getElementById('login_btn').style = "visibility: hidden";
-        document.getElementById('logout_btn').style = "visibility: visible";
+        document.getElementById('login_btn').style = "display: none";
+        document.getElementById('logout_btn').style = "display: block";
     } else if (response.status === 'not_authorized') {
         // The person is logged into Facebook, but not your app.
         document.getElementById('status').innerHTML = 'Přihlašte se do této aplikace.';
-        document.getElementById('actions').style = "visibility: hidden";
-        document.getElementById('login_btn').style = "visibility: visible";
-        document.getElementById('logout_btn').style = "visibility: hidden";
+        document.getElementById('login_btn').style = "display: block";
+        document.getElementById('logout_btn').style = "display: none";
     } else {
         // The person is not logged into Facebook, so we're not sure if
         // they are logged into this app or not.
         document.getElementById('status').innerHTML = 'Přihlašte se pomocí Facebooku.';
-        document.getElementById('actions').style = "visibility: hidden";
-        document.getElementById('login_btn').style = "visibility: visible";
-        document.getElementById('logout_btn').style = "visibility: hidden";
+        document.getElementById('login_btn').style = "display: block";
+        document.getElementById('logout_btn').style = "display: none";
     }
 }
 
@@ -33,6 +30,16 @@ function subscribeToEvents() {
     FB.Event.subscribe('auth.logout', logout_event);
 }
 
+
+function isLoggedIn() {
+    FB.getLoginStatus(function (response) {
+        if(response.status == "connected"){
+            return true;
+        }else{
+            return false;
+        }
+    })
+}
 // This function is called when someone finishes with the Login
 // Button.  See the onlogin handler attached to it in the sample
 // code below.
