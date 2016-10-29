@@ -106,7 +106,7 @@ function loginUserIntoApplication() {
             if(!alreadyExists){
                 var data = "name="+response.name+"&email="+response.email;
                 makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/users", data, function (responseText) {
-                    console.log(responseText);
+                    console.log(JSON.parse(responseText).message);
                 })
             }
         });
