@@ -160,7 +160,7 @@ function processUsers(responseText) {
     if(responseText){
         var users = JSON.parse(responseText);
         for (user in users){
-            console.log(user[email]);
+            console.log(user);
         }
     }
 }
