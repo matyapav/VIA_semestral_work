@@ -94,7 +94,9 @@ window.fbAsyncInit = function() {
 function testAPI() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me', function(response) {
-        console.log('Successful login for: ' + response.name);
+        console.log('Successful login for: ' + response.name + " "+response.email);
+
+        //httpRequest("GET", "http://localhost/api/)
         document.getElementById('status').innerHTML =
             'Přihlášen jako, ' + response.name + '!';
     });
@@ -113,4 +115,14 @@ var logout_event = function(response) {
     console.log(response.status);
     console.log(response);
     checkLoginState();
+}
+
+var httpRequest = function(method, url){
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+            return xmlHttp.responseText;
+    }
+    xmlHttp.open(method, url, true); // true for asynchronous
+    xmlHttp.send(null);
 }
