@@ -92,11 +92,7 @@ function loginUserIntoApplication() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me',{ fields: 'name, email' }, function(response) {
         console.log('Successful login for: ' + response.name + " "+response.email);
-        var usersJSON = createCORSRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/users");
-        if(!usersJSON) {
-            alert(usersJSON);
-            var users = JSON.parse(usersJSON);
-        }
+        makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/users");
 
         document.getElementById('status').innerHTML =
             'Přihlášen jako, ' + response.name + '!';
@@ -122,28 +118,48 @@ var logout_event = function(response) {
     checkLoginState();
 }
 
+// Create the XHR object.
 function createCORSRequest(method, url) {
     var xhr = new XMLHttpRequest();
     if ("withCredentials" in xhr) {
+        // XHR for Chrome/Firefox/Opera/Safari.
         xhr.open(method, url, true);
     } else if (typeof XDomainRequest != "undefined") {
+        // XDomainRequest for IE.
         xhr = new XDomainRequest();
         xhr.open(method, url);
     } else {
+        // CORS not supported.
         xhr = null;
     }
-    if(!xhr){
-        throw new Error('CORS not supported');
-    }else{
-        xhr.onload = function() {
-            console.log(responseText);
-            return responseText = xhr.responseText;
-        };
+    return xhr;
+}
 
-        xhr.onerror = function() {
-            console.log('There was an error!');
-        };
-        xhr.send();
+// Helper method to parse the title tag from the response.
+function getTitle(text) {
+    return text.match('<title>(.*)?</title>')[1];
+}
+
+// Make the actual CORS request.
+function makeCorsRequest(method, url) {
+    // This is a sample server that supports CORS.
+
+    var xhr = createCORSRequest(method, url);
+    if (!xhr) {
+        alert('CORS not supported');
+        return;
     }
 
+    // Response handlers.
+    xhr.onload = function() {
+        var text = xhr.responseText;
+        var title = getTitle(text);
+        alert('Response from CORS request to ' + url + ': ' + title);
+    };
+
+    xhr.onerror = function() {
+        alert('Woops, there was an error making the request.');
+    };
+
+    xhr.send();
 }
