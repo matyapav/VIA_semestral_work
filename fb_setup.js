@@ -125,6 +125,7 @@ var httpRequest = function(method, url){
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
             return xmlHttp.responseText;
     }
+    xmlHttp.setRequestHeader('Access-Control-Allow-Origin', '*');
     xmlHttp.open(method, url, true); // true for asynchronous
     xmlHttp.send(null);
 }
