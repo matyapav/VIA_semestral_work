@@ -92,7 +92,24 @@ function loginUserIntoApplication() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me',{ fields: 'name, email' }, function(response) {
         console.log('Successful login for: ' + response.name + " "+response.email);
-        makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/users", processUsers);
+        makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/users", null, function (responseText) {
+            var alreadyExists = false;
+            if(responseText){
+                var users = JSON.parse(responseText);
+                for (id in users){
+                    if(users[id].email == email){
+                        alreadyExists = true;
+                        break;
+                    };
+                }
+            }
+            if(!alreadyExists){
+                var data = "name="+response.name+"&email="+response.email;
+                makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/users", data, function (responseText) {
+                    console.log(responseText);
+                })
+            }
+        });
         document.getElementById('status').innerHTML =
             'Přihlášen jako, ' + response.name + '!';
     });
@@ -135,7 +152,7 @@ function createCORSRequest(method, url) {
 }
 
 // Make the actual CORS request.
-function makeCorsRequest(method, url, callback) {
+function makeCorsRequest(method, url, data, callback) {
     // This is a sample server that supports CORS.
 
     var xhr = createCORSRequest(method, url);
@@ -153,14 +170,11 @@ function makeCorsRequest(method, url, callback) {
         alert('Woops, there was an error making the request.');
         return null;
     };
-    xhr.send();
-}
-
-function processUsers(responseText) {
-    if(responseText){
-        var users = JSON.parse(responseText);
-        for (id in users){
-            console.log(users[id].email);
-        }
+    if(data && method == "POST"){
+        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+        xhr.send(data)
+    }else{
+        xhr.send();
     }
+
 }
