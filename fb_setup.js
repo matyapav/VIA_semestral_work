@@ -94,7 +94,7 @@ function loginUserIntoApplication() {
         console.log('Successful login for: ' + response.name + " "+response.email);
         var usersJSON = createCORSRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/users");
         if(!usersJSON) {
-            alert(users);
+            alert(usersJSON);
             var users = JSON.parse(usersJSON);
         }
 
