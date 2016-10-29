@@ -18,7 +18,7 @@
     <input id="radius-input" type="number" min="0", max="50000" placeholder="Nastavte radius" value="500" style="width: 120px; text-align: center"/>
 </div>
 <div id="login" style="position: absolute; right: 20px; top: 20px">
-    <input type="button" id="login_btn" value="Login" onclick="FB.login();">
+    <input type="button" id="login_btn" value="Login" onclick="FB.login({ scope: 'email' });">
     <input type="button" id="logout_btn" value="Logout" onclick="FB.logout();">
     <div id="status"></div>
 </button></div>
