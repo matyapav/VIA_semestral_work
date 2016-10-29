@@ -127,5 +127,6 @@ var httpRequest = function(method, url){
     }
     xmlHttp.open(method, url, true); // true for asynchronous
     xmlHttp.setRequestHeader('Access-Control-Allow-Origin', '*');
+    xmlHttp.setRequestHeader('Content-Type', "application/json")
     xmlHttp.send(null);
 }
