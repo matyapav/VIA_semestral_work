@@ -92,7 +92,7 @@ function loginUserIntoApplication() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me',{ fields: 'name, email' }, function(response) {
         console.log('Successful login for: ' + response.name + " "+response.email);
-        var usersJSON = httpRequest("GET", "http://ivebeenthereapi-matyapav.rhcloud.com/users");
+        var usersJSON = httpRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/users");
         var users = JSON.parse(usersJSON);
         alert(users);
         document.getElementById('status').innerHTML =
