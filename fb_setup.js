@@ -102,6 +102,7 @@ function testAPI() {
 }
 function fblogin()
 {
+    checkLoginState();
     FB.login(function (response) {
         if (response.authResponse) {
             testAPI();
@@ -109,7 +110,7 @@ function fblogin()
             console.log('User cancelled login or did not fully authorize.');
         }
     }, { scope: 'email,name' });
-    checkLoginState();
+
 }
 
 // // In your JavaScript code:
