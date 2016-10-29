@@ -11,7 +11,7 @@ function statusChangeCallback(response) {
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
         // Logged into your app and Facebook.
-        testAPI();
+        loginUserIntoApplication();
         document.getElementById('login_btn').style = "display: none";
         document.getElementById('logout_btn').style = "display: block";
         if(somePlaceIsSelected){
@@ -88,14 +88,13 @@ window.fbAsyncInit = function() {
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
 
-// Here we run a very simple test of the Graph API after login is
-// successful.  See statusChangeCallback() for when this call is made.
-function testAPI() {
+function loginUserIntoApplication() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me',{ fields: 'name, email' }, function(response) {
         console.log('Successful login for: ' + response.name + " "+response.email);
-
-        //httpRequest("GET", "http://localhost/api/)
+        var usersJSON = httpRequest("GET", "http://ivebeenthereapi-matyapav.rhcloud.com/users");
+        var users = JSON.parse(usersJSON);
+        alert(users);
         document.getElementById('status').innerHTML =
             'Přihlášen jako, ' + response.name + '!';
     });
