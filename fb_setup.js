@@ -92,9 +92,12 @@ function loginUserIntoApplication() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me',{ fields: 'name, email' }, function(response) {
         console.log('Successful login for: ' + response.name + " "+response.email);
-        var usersJSON = httpRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/users");
-        var users = JSON.parse(usersJSON);
-        alert(users);
+        var usersJSON = createCORSRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/users");
+        if(!usersJSON) {
+            alert(users);
+            var users = JSON.parse(usersJSON);
+        }
+
         document.getElementById('status').innerHTML =
             'Přihlášen jako, ' + response.name + '!';
     });
@@ -119,14 +122,28 @@ var logout_event = function(response) {
     checkLoginState();
 }
 
-var httpRequest = function(method, url){
-    var xmlHttp = new XMLHttpRequest();
-    xmlHttp.onreadystatechange = function() {
-        if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
-            return xmlHttp.responseText;
+function createCORSRequest(method, url) {
+    var xhr = new XMLHttpRequest();
+    if ("withCredentials" in xhr) {
+        xhr.open(method, url, true);
+    } else if (typeof XDomainRequest != "undefined") {
+        xhr = new XDomainRequest();
+        xhr.open(method, url);
+    } else {
+        xhr = null;
     }
-    xmlHttp.open(method, url, true); // true for asynchronous
-    xmlHttp.setRequestHeader('Access-Control-Allow-Origin', '*');
-    xmlHttp.setRequestHeader('Content-Type', "application/json")
-    xmlHttp.send(null);
+    if(!xhr){
+        throw new Error('CORS not supported');
+    }else{
+        xhr.onload = function() {
+            console.log(responseText);
+            return responseText = xhr.responseText;
+        };
+
+        xhr.onerror = function() {
+            console.log('There was an error!');
+        };
+        xhr.send();
+    }
+
 }
