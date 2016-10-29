@@ -159,8 +159,8 @@ function makeCorsRequest(method, url, callback) {
 function processUsers(responseText) {
     if(responseText){
         var users = JSON.parse(responseText);
-        for (user in users){
-            console.log(user);
+        for (id in users){
+            console.log(users[id].email);
         }
     }
 }
