@@ -135,7 +135,6 @@ function createCORSRequest(method, url) {
     return xhr;
 }
 
-
 // Make the actual CORS request.
 function makeCorsRequest(method, url) {
     // This is a sample server that supports CORS.
