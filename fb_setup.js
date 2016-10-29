@@ -135,10 +135,6 @@ function createCORSRequest(method, url) {
     return xhr;
 }
 
-// Helper method to parse the title tag from the response.
-function getTitle(text) {
-    return text.match('<title>(.*)?</title>')[1];
-}
 
 // Make the actual CORS request.
 function makeCorsRequest(method, url) {
@@ -154,7 +150,7 @@ function makeCorsRequest(method, url) {
     xhr.onload = function() {
         var text = xhr.responseText;
         var title = getTitle(text);
-        alert('Response from CORS request to ' + url + ': ' + title);
+        alert('Response from CORS request to ' + text);
     };
 
     xhr.onerror = function() {
