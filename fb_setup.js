@@ -92,7 +92,11 @@ function loginUserIntoApplication() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me',{ fields: 'name, email' }, function(response) {
         console.log('Successful login for: ' + response.name + " "+response.email);
-        makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/users");
+        var usersJson = makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/users");
+        if(usersJson){
+            var users = JSON.parse(usersJson);
+            alert(users);
+        }
 
         document.getElementById('status').innerHTML =
             'Přihlášen jako, ' + response.name + '!';
@@ -148,11 +152,12 @@ function makeCorsRequest(method, url) {
     // Response handlers.
     xhr.onload = function() {
         var text = xhr.responseText;
-        alert('Response from CORS request to ' + text);
+        return text;
     };
 
     xhr.onerror = function() {
         alert('Woops, there was an error making the request.');
+        return null;
     };
 
     xhr.send();
