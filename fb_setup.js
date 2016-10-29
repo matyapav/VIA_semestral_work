@@ -40,7 +40,6 @@ function statusChangeCallback(response) {
 }
 
 function subscribeToEvents() {
-    FB.Event.subscribe('auth.login', login_event);
     FB.Event.subscribe('auth.logout', logout_event);
 }
 
