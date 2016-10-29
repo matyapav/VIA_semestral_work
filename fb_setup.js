@@ -119,7 +119,7 @@ var logout_event = function(response) {
     checkLoginState();
 }
 
-var HttpRequest = function(method, url){
+var httpRequest = function(method, url){
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
