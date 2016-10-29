@@ -97,7 +97,7 @@ function loginUserIntoApplication() {
             if(responseText){
                 var users = JSON.parse(responseText);
                 for (id in users){
-                    if(users[id].email == email){
+                    if(users[id].email == response.email){
                         alreadyExists = true;
                         break;
                     };
