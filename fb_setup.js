@@ -102,24 +102,16 @@ function testAPI() {
 }
 function fblogin()
 {
-    checkLoginState();
+
     FB.login(function (response) {
         if (response.authResponse) {
-            testAPI();
+            checkLoginState();
         } else {
             console.log('User cancelled login or did not fully authorize.');
         }
     }, { scope: 'email,name' });
 
 }
-
-// // In your JavaScript code:
-// var login_event = function(response) {
-//     console.log("login_event");
-//     console.log(response.status);
-//     console.log(response);
-//     checkLoginState();
-// }
 
 var logout_event = function(response) {
     console.log("logout_event");
