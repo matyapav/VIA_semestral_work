@@ -27,3 +27,7 @@
     width: 120px;
     text-align: center;
 }
+
+#myBtn{
+    cursor: pointer;
+}
