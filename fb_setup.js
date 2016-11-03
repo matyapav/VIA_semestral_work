@@ -54,9 +54,9 @@ window.fbAsyncInit = function() {
     //
     // These three cases are handled in the callback function.
 
-    FB.getLoginStatus(function(response) {
-        statusChangeCallback(response);
-    });
+    if(isLoggedIn){
+        checkLoginState();
+    }
 
 };
 
@@ -97,7 +97,7 @@ function loginUserIntoApplication() {
             console.log(localStorage.getItem("id"));
             performLoginActions();
             document.getElementById('status').innerHTML =
-                'Přihlášen jako, <span onclick="showUserInfo()"> ' + response.name + '</span>!';
+                'Přihlášen jako, <a onclick="showUserInfo()"> ' + response.name + '</a>!';
 
         });
 
