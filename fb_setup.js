@@ -12,6 +12,7 @@ function statusChangeCallback(response) {
 
     } else if (response.status === 'not_authorized') {
         // The person is logged into Facebook, but not your app.
+
     } else {
         // The person is not logged into Facebook, so we're not sure if
         // they are logged into this app or not.
@@ -20,6 +21,12 @@ function statusChangeCallback(response) {
 
 function subscribeToEvents() {
     FB.Event.subscribe('auth.logout', logout_event);
+}
+
+function checkLoginState() {
+    FB.getLoginStatus(function(response) {
+        statusChangeCallback(response);
+    });
 }
 
 window.fbAsyncInit = function() {
@@ -85,6 +92,7 @@ function loginUserIntoApplication() {
             }
             console.log(localStorage.getItem("id"));
             performLoginActions();
+
         });
 
     });
@@ -108,6 +116,7 @@ function fblogin() {
             if(!localStorage.getItem("id")){
                 loginUserIntoApplication();
             }
+            performLoginActions();
         } else {
             console.log('User cancelled login or did not fully authorize.');
         }
@@ -134,6 +143,7 @@ function performLoginActions() {
     makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/users/"+userId, null, function (responseText) {
         document.getElementById('status').innerHTML = 'Přihlášen jako, ' + JSON.parse(responseText).name + '!';
     });
+
 }
 
 var logout_event = function(response) {
