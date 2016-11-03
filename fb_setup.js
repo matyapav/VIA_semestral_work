@@ -101,6 +101,7 @@ function loginUserIntoApplication() {
                     if(users[id].email == response.email){
                         alreadyExists = true;
                         userIdByEmail = users[id]._id;
+                        saveUserIdInLocalStorage(userIdByEmail);
                         break;
                     };
                 }
@@ -110,15 +111,14 @@ function loginUserIntoApplication() {
                 makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/users", data, function (responseText) {
                     console.log(JSON.parse(responseText).message);
                     userIdByEmail = JSON.parse(responseText).id;
+                    saveUserIdInLocalStorage(userIdByEmail);
                     console.log("user id was succesfully set")
                 });
             }
+            console.log(localStorage.getItem("id"));
             document.getElementById('status').innerHTML =
                 'Přihlášen jako, ' + response.name + '!';
-            if(userIdByEmail != null){
-                saveUserIdInLocalStorage(userIdByEmail);
-                console.log(localStorage.getItem("id"));
-            }
+
         });
 
     });
