@@ -111,13 +111,13 @@ function loginUserIntoApplication() {
                     console.log(JSON.parse(responseText).message);
                     userIdByEmail = JSON.parse(responseText).id;
                     console.log("user id was succesfully set")
-                })
-                document.getElementById('status').innerHTML =
-                    'Přihlášen jako, ' + response.name + '!';
-                if(userIdByEmail != null){
-                    saveUserIdInLocalStorage(userIdByEmail);
-                    console.log(localStorage.getItem("id"));
-                }
+                });
+            }
+            document.getElementById('status').innerHTML =
+                'Přihlášen jako, ' + response.name + '!';
+            if(userIdByEmail != null){
+                saveUserIdInLocalStorage(userIdByEmail);
+                console.log(localStorage.getItem("id"));
             }
         });
 
