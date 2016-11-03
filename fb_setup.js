@@ -1,7 +1,5 @@
 var isLoggedIn = false;
 
-// This is called with the results from from FB.getLoginStatus().
-
 function statusChangeCallback(response) {
     console.log('statusChangeCallback');
     console.log(response);
@@ -43,9 +41,6 @@ function subscribeToEvents() {
     FB.Event.subscribe('auth.logout', logout_event);
 }
 
-// This function is called when someone finishes with the Login
-// Button.  See the onlogin handler attached to it in the sample
-// code below.
 function checkLoginState() {
     FB.getLoginStatus(function(response) {
         statusChangeCallback(response);
@@ -79,7 +74,6 @@ window.fbAsyncInit = function() {
 
 };
 
-// Load the SDK asynchronously
 (function(d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
     if (d.getElementById(id)) return;
@@ -112,7 +106,6 @@ function loginUserIntoApplication() {
                     console.log(JSON.parse(responseText).message);
                     userIdByEmail = JSON.parse(responseText).id;
                     saveUserIdInLocalStorage(userIdByEmail);
-                    console.log("user id was succesfully set")
                 });
             }
             console.log(localStorage.getItem("id"));
@@ -134,8 +127,8 @@ function saveUserIdInLocalStorage(user_id){
         document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
     }
 }
-function fblogin()
-{
+
+function fblogin() {
     FB.login(function (response) {
         if (response.authResponse) {
             checkLoginState();
@@ -143,7 +136,6 @@ function fblogin()
             console.log('User cancelled login or did not fully authorize.');
         }
     }, { scope: 'email' });
-
 }
 
 var logout_event = function(response) {
@@ -153,7 +145,6 @@ var logout_event = function(response) {
     checkLoginState();
 }
 
-// Create the XHR object.
 function createCORSRequest(method, url) {
     var xhr = new XMLHttpRequest();
     if ("withCredentials" in xhr) {
@@ -166,21 +157,18 @@ function createCORSRequest(method, url) {
     } else {
         // CORS not supported.
         xhr = null;
+        console.log("CORS are not supported by this browser");
     }
     return xhr;
 }
 
-// Make the actual CORS request.
 function makeCorsRequest(method, url, data, callback) {
-    // This is a sample server that supports CORS.
-
     var xhr = createCORSRequest(method, url);
     if (!xhr) {
         alert('CORS not supported');
         return null;
     }
 
-    // Response handlers.
     xhr.onload = function() {
         callback(xhr.responseText);
     };
@@ -189,6 +177,7 @@ function makeCorsRequest(method, url, data, callback) {
         alert('Woops, there was an error making the request.');
         return null;
     };
+
     if(data && method == "POST"){
         xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
         xhr.send(data)
