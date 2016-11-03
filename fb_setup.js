@@ -12,10 +12,8 @@ function statusChangeCallback(response) {
         console.log(localStorage.getItem("id"));
         if(!localStorage.getItem("id")){
             loginUserIntoApplication();
-        }else{
-            performLoginActions();
         }
-
+        performLoginActions();
     } else if (response.status === 'not_authorized') {
         // The person is logged into Facebook, but not your app.
         logout();
@@ -99,8 +97,6 @@ function loginUserIntoApplication() {
             }
             console.log(localStorage.getItem("id"));
             performLoginActions();
-            document.getElementById('status').innerHTML =
-                'Přihlášen jako, ' + response.name + '!';
 
         });
 
@@ -135,12 +131,17 @@ function logout(){
 }
 
 function performLoginActions() {
+    isLoggedIn = true;
     document.getElementById('login_btn').style = "display: none";
     document.getElementById('logout_btn').style = "display: block";
     if(somePlaceIsSelected){
         document.getElementById('actions').style = "visibility: visible";
     }
-    isLoggedIn = true;
+    var userId = localStorage.getItem("id");
+    makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/users/"+userId, null, function (responseText) {
+        document.getElementById('status').innerHTML = 'Přihlášen jako, ' + JSON.parse(responseText).name + '!';
+    });
+
 }
 
 function performLogoutActions(){
