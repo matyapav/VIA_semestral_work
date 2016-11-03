@@ -92,6 +92,7 @@ function loginUserIntoApplication() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me',{ fields: 'name, email' }, function(response) {
         console.log('Successful login for: ' + response.name + " "+response.email);
+        var userIdByEmail = null;
         makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/users", null, function (responseText) {
             var alreadyExists = false;
             if(responseText){
@@ -99,6 +100,7 @@ function loginUserIntoApplication() {
                 for (id in users){
                     if(users[id].email == response.email){
                         alreadyExists = true;
+                        userIdByEmail = users[id]._id;
                         break;
                     };
                 }
@@ -107,16 +109,31 @@ function loginUserIntoApplication() {
                 var data = "name="+response.name+"&email="+response.email;
                 makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/users", data, function (responseText) {
                     console.log(JSON.parse(responseText).message);
+                    userIdByEmail = JSON.parse(responseText).id;
                 })
             }
         });
         document.getElementById('status').innerHTML =
             'Přihlášen jako, ' + response.name + '!';
+        if(userIdByEmail != null){
+            saveUserIdInLocalStorage(userIdByEmail);
+            console.log(localStorage.getItem("id"));
+        }
     });
+}
+
+function saveUserIdInLocalStorage(user_id){
+    // Check browser support
+    if (typeof(Storage) !== "undefined") {
+        // Store
+        localStorage.setItem("id", user_id);
+
+    } else {
+        document.getElementById("result").innerHTML = "Sorry, your browser does not support Web Storage...";
+    }
 }
 function fblogin()
 {
-
     FB.login(function (response) {
         if (response.authResponse) {
             checkLoginState();
