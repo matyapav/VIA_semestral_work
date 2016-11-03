@@ -92,8 +92,8 @@ function loginUserIntoApplication() {
     console.log('Welcome!  Fetching your information.... ');
     FB.api('/me',{ fields: 'name, email' }, function(response) {
         console.log('Successful login for: ' + response.name + " "+response.email);
-        var userIdByEmail = null;
-        makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/users", null, function (responseText) {
+        makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/users", null, function (responseText) {7
+            var userIdByEmail = null;
             var alreadyExists = false;
             if(responseText){
                 var users = JSON.parse(responseText);
@@ -110,15 +110,17 @@ function loginUserIntoApplication() {
                 makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/users", data, function (responseText) {
                     console.log(JSON.parse(responseText).message);
                     userIdByEmail = JSON.parse(responseText).id;
+                    console.log("user id was succesfully set")
                 })
             }
+            document.getElementById('status').innerHTML =
+                'Přihlášen jako, ' + response.name + '!';
+            if(userIdByEmail != null){
+                saveUserIdInLocalStorage(userIdByEmail);
+                console.log(localStorage.getItem("id"));
+            }
         });
-        document.getElementById('status').innerHTML =
-            'Přihlášen jako, ' + response.name + '!';
-        if(userIdByEmail != null){
-            saveUserIdInLocalStorage(userIdByEmail);
-            console.log(localStorage.getItem("id"));
-        }
+
     });
 }
 
