@@ -104,12 +104,10 @@ function showInfoAboutPlace(place){
     if(place.opening_hours != null){
         document.getElementById('place-open').innerText = place.opening_hours.open_now? 'Ano':'Ne';
     }else{
-        document.getElementById('place-open').innerText = "-"
+        document.getElementById('place-open').innerText = "-";
     }
 
-    if(isLoggedIn){
-        document.getElementById('actions').style = "visibility: visible"
-    }
+    document.getElementById('actions').style = "visibility: visible";
 
     somePlaceIsSelected = true;
     console.log(place)

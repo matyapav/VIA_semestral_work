@@ -1,4 +1,3 @@
-var isLoggedIn = false;
 
 function statusChangeCallback(response) {
     console.log('statusChangeCallback');
@@ -8,17 +7,10 @@ function statusChangeCallback(response) {
     // Full docs on the response object can be found in the documentation
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
-        // Logged into your app and Facebook.\
-        if(isLoggedIn == false){
-            loginUserIntoApplication();
-        }
-
+        loginUserIntoApplication();
     } else if (response.status === 'not_authorized') {
-        // The person is logged into Facebook, but not your app.
         logout();
     } else {
-        // The person is not logged into Facebook, so we're not sure if
-        // they are logged into this app or not.
         logout();
     }
 }
@@ -54,8 +46,10 @@ window.fbAsyncInit = function() {
     //
     // These three cases are handled in the callback function.
 
-    if(isLoggedIn){
+    if(localStorage.getItem("id")){
         checkLoginState();
+    }else{
+        performLogoutActions();
     }
 
 };
@@ -136,7 +130,6 @@ function fblogin() {
 }
 
 function logout(){
-    isLoggedIn = false;
     localStorage.removeItem("id");
     performLogoutActions();
 }
@@ -147,7 +140,6 @@ function performLoginActions() {
     if(somePlaceIsSelected){
         document.getElementById('actions').style = "visibility: visible";
     }
-    isLoggedIn = true;
 }
 
 function performLogoutActions(){
