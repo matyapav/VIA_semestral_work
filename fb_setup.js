@@ -9,7 +9,7 @@ function statusChangeCallback(response) {
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
         // Logged into your app and Facebook.\
-        if(isLoggedIn == false){
+        if(!localStorage.getItem("id")){
             loginUserIntoApplication();
         }
 
@@ -69,7 +69,6 @@ window.fbAsyncInit = function() {
 }(document, 'script', 'facebook-jssdk'));
 
 function loginUserIntoApplication() {
-    console.log('Welcome!  Fetching your information.... ');
     FB.api('/me',{ fields: 'name, email' }, function(response) {
         console.log('Successful login for: ' + response.name + " "+response.email);
         makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/users", null, function (responseText) {
@@ -79,6 +78,7 @@ function loginUserIntoApplication() {
                 var users = JSON.parse(responseText);
                 for (id in users){
                     if(users[id].email == response.email){
+                        //user exists .. perform login
                         alreadyExists = true;
                         userIdByEmail = users[id]._id;
                         saveUserIdInLocalStorage(userIdByEmail);
