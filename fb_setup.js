@@ -97,11 +97,21 @@ function loginUserIntoApplication() {
             console.log(localStorage.getItem("id"));
             performLoginActions();
             document.getElementById('status').innerHTML =
-                'Přihlášen jako, ' + response.name + '!';
+                'Přihlášen jako, <span onclick="showUserInfo()"> ' + response.name + '</span>!';
 
         });
 
     });
+}
+
+function  showUserInfo() {
+    var userid = localStorage.getItem('id');
+    if(userid){
+        makeCorsRequest('GET', 'https://ivebeenthereapi-matyapav.rhcloud.com/users/'+userid, null, function (responseText) {
+            alert(JSON.parse(responseText).name+" "+JSON.parse(responseText).email);
+        })
+    }
+
 }
 
 function saveUserIdInLocalStorage(user_id){
