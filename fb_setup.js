@@ -115,8 +115,9 @@ function fblogin() {
             console.log(localStorage.getItem("id"));
             if(!localStorage.getItem("id")){
                 loginUserIntoApplication();
+                performLoginActions();
             }
-            performLoginActions();
+
         } else {
             console.log('User cancelled login or did not fully authorize.');
         }
