@@ -91,7 +91,7 @@ function loginUserIntoApplication() {
             console.log(localStorage.getItem("id"));
             performLoginActions();
             document.getElementById('status').innerHTML =
-                'Přihlášen jako, <a onclick="showUserInfo()"> ' + response.name + '</a>!';
+                'Přihlášen jako, <a id="myBtn"> ' + response.name + '</a>!';
 
         });
 
@@ -102,7 +102,8 @@ function  showUserInfo() {
     var userid = localStorage.getItem('id');
     if(userid){
         makeCorsRequest('GET', 'https://ivebeenthereapi-matyapav.rhcloud.com/users/'+userid, null, function (responseText) {
-            alert(JSON.parse(responseText).name+" "+JSON.parse(responseText).email);
+            var modalInfo = document.getElementsById("modal-info");
+            modalInfo.innerHTML = "<p>"+(JSON.parse(responseText).name+" "+JSON.parse(responseText).email)+"</p>";
         })
     }
 
