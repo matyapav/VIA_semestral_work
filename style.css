@@ -1,0 +1,24 @@
+#place-info{
+    width: 500px;
+    padding-top: 20px;
+    margin: auto;
+}
+
+#place-name, #place-address, #place-open, #place-actions{
+    text-align: right;
+}
+
+#actions, #login_btn, #logout_btn{
+    visibility: hidden;
+}
+
+#radius{
+    position: absolute;
+    left: 20px;
+    top: 20px;
+}
+
+#radius-input{
+    width: 120px;
+    text-align: center;
+}
