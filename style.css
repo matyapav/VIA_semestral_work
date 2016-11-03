@@ -8,10 +8,15 @@
     text-align: right;
 }
 
-#actions, #login_btn, #logout_btn{
+#actions{
     visibility: hidden;
 }
 
+#login{
+    position: absolute;
+    right: 20px;
+    top: 10px;
+}
 #radius{
     position: absolute;
     left: 20px;
