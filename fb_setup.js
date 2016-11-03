@@ -19,21 +19,11 @@ function statusChangeCallback(response) {
 
     } else if (response.status === 'not_authorized') {
         // The person is logged into Facebook, but not your app.
-        document.getElementById('status').innerHTML = 'Přihlašte se do této aplikace.';
-        document.getElementById('login_btn').style = "display: block";
-        document.getElementById('logout_btn').style = "display: none";
-        document.getElementById('actions').style = "visibility: hidden";
-        isLoggedIn = false;
-
+        logout();
     } else {
         // The person is not logged into Facebook, so we're not sure if
         // they are logged into this app or not.
-        document.getElementById('status').innerHTML = 'Přihlašte se pomocí Facebooku.';
-        document.getElementById('login_btn').style = "display: block";
-        document.getElementById('logout_btn').style = "display: none";
-        document.getElementById('actions').style = "visibility: hidden";
-        isLoggedIn = false;
-
+        logout();
     }
 }
 
@@ -136,6 +126,19 @@ function fblogin() {
             console.log('User cancelled login or did not fully authorize.');
         }
     }, { scope: 'email' });
+}
+
+function logout(){
+    isLoggedIn = false;
+    localStorage.removeItem("id");
+    performLogoutActions();
+}
+
+function performLogoutActions(){
+    document.getElementById('status').innerHTML = 'Přihlašte se do této aplikace.';
+    document.getElementById('login_btn').style = "display: block";
+    document.getElementById('logout_btn').style = "display: none";
+    document.getElementById('actions').style = "visibility: hidden";
 }
 
 var logout_event = function(response) {
