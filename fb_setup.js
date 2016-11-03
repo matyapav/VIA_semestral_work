@@ -91,7 +91,7 @@ function loginUserIntoApplication() {
             console.log(localStorage.getItem("id"));
             performLoginActions();
             document.getElementById('status').innerHTML =
-                'Přihlášen jako, <a id="myBtn"> ' + response.name + '</a>!';
+                'Přihlášen jako, <a id="myBtn" onclick="showUserInfo()"> ' + response.name + '</a>!';
 
         });
 
