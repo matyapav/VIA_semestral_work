@@ -8,14 +8,10 @@ function statusChangeCallback(response) {
     // Full docs on the response object can be found in the documentation
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
-        // Logged into your app and Facebook.
-        loginUserIntoApplication();
-        document.getElementById('login_btn').style = "display: none";
-        document.getElementById('logout_btn').style = "display: block";
-        if(somePlaceIsSelected){
-            document.getElementById('actions').style = "visibility: visible";
+        // Logged into your app and Facebook.\
+        if(isLoggedIn == false){
+            loginUserIntoApplication();
         }
-        isLoggedIn = true;
 
     } else if (response.status === 'not_authorized') {
         // The person is logged into Facebook, but not your app.
@@ -99,6 +95,7 @@ function loginUserIntoApplication() {
                 });
             }
             console.log(localStorage.getItem("id"));
+            performLoginActions();
             document.getElementById('status').innerHTML =
                 'Přihlášen jako, ' + response.name + '!';
 
@@ -132,6 +129,15 @@ function logout(){
     isLoggedIn = false;
     localStorage.removeItem("id");
     performLogoutActions();
+}
+
+function performLoginActions() {
+    document.getElementById('login_btn').style = "display: none";
+    document.getElementById('logout_btn').style = "display: block";
+    if(somePlaceIsSelected){
+        document.getElementById('actions').style = "visibility: visible";
+    }
+    isLoggedIn = true;
 }
 
 function performLogoutActions(){
