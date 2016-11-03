@@ -1,33 +1,33 @@
 var isLoggedIn = false;
 
-function statusChangeCallback(response) {
-    console.log('statusChangeCallback');
-    console.log(response);
-    // The response object is returned with a status field that lets the
-    // app know the current login status of the person.
-    // Full docs on the response object can be found in the documentation
-    // for FB.getLoginStatus().
-    if (response.status === 'connected') {
-        // Logged into your app and Facebook.\
-
-    } else if (response.status === 'not_authorized') {
-        // The person is logged into Facebook, but not your app.
-
-    } else {
-        // The person is not logged into Facebook, so we're not sure if
-        // they are logged into this app or not.
-    }
-}
+// function statusChangeCallback(response) {
+//     console.log('statusChangeCallback');
+//     console.log(response);
+//     // The response object is returned with a status field that lets the
+//     // app know the current login status of the person.
+//     // Full docs on the response object can be found in the documentation
+//     // for FB.getLoginStatus().
+//     if (response.status === 'connected') {
+//         // Logged into your app and Facebook.\
+//
+//     } else if (response.status === 'not_authorized') {
+//         // The person is logged into Facebook, but not your app.
+//
+//     } else {
+//         // The person is not logged into Facebook, so we're not sure if
+//         // they are logged into this app or not.
+//     }
+// }
 
 function subscribeToEvents() {
     FB.Event.subscribe('auth.logout', logout_event);
 }
 
-function checkLoginState() {
-    FB.getLoginStatus(function(response) {
-        statusChangeCallback(response);
-    });
-}
+// function checkLoginState() {
+//     FB.getLoginStatus(function(response) {
+//         statusChangeCallback(response);
+//     });
+// }
 
 window.fbAsyncInit = function() {
     FB.init({
@@ -50,9 +50,9 @@ window.fbAsyncInit = function() {
     //
     // These three cases are handled in the callback function.
 
-    FB.getLoginStatus(function(response) {
-        statusChangeCallback(response);
-    });
+    // FB.getLoginStatus(function(response) {
+    //     statusChangeCallback(response);
+    // });
 
 };
 
@@ -77,7 +77,7 @@ function loginUserIntoApplication() {
                         //user exists .. perform login
                         alreadyExists = true;
                         userIdByEmail = users[id]._id;
-                        saveUserIdInLocalStorage(userIdByEmail);
+                        saveUserIdInLocalStorage(userIdByEmail, response.name, response.email);
                         break;
                     };
                 }
@@ -86,8 +86,7 @@ function loginUserIntoApplication() {
                 var data = "name="+response.name+"&email="+response.email;
                 makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/users", data, function (responseText) {
                     console.log(JSON.parse(responseText).message);
-                    userIdByEmail = JSON.parse(responseText).id;
-                    saveUserIdInLocalStorage(userIdByEmail);
+                    saveUserIdInLocalStorage(JSON.parse(responseText).id, response.name, response.email);
                 });
             }
             console.log(localStorage.getItem("id"));
@@ -98,10 +97,12 @@ function loginUserIntoApplication() {
     });
 }
 
-function saveUserIdInLocalStorage(user_id){
+function saveUserIdInLocalStorage(user_id, name, email){
     // Check browser support
     if (typeof(Storage) !== "undefined") {
         // Store
+        localStorage.setItem("name", name);
+        localStorage.setItem("email", email);
         localStorage.setItem("id", user_id);
 
     } else {
@@ -140,10 +141,7 @@ function performLoginActions() {
     if(somePlaceIsSelected){
         document.getElementById('actions').style = "visibility: visible";
     }
-    var userId = localStorage.getItem("id");
-    makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/users/"+userId, null, function (responseText) {
-        document.getElementById('status').innerHTML = 'Přihlášen jako, ' + JSON.parse(responseText).name + '!';
-    });
+    document.getElementById('status').innerHTML = 'Přihlášen jako, ' + localStorage.getItem("name"); + '!';
 
 }
 
