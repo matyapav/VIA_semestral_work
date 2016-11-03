@@ -9,8 +9,11 @@ function statusChangeCallback(response) {
     // for FB.getLoginStatus().
     if (response.status === 'connected') {
         // Logged into your app and Facebook.\
+        console.log(localStorage.getItem("id"));
         if(!localStorage.getItem("id")){
             loginUserIntoApplication();
+        }else{
+            performLoginActions();
         }
 
     } else if (response.status === 'not_authorized') {
