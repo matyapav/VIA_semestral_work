@@ -104,7 +104,7 @@ function  showUserInfo() {
         makeCorsRequest('GET', 'https://ivebeenthereapi-matyapav.rhcloud.com/users/'+userid, null, function (responseText) {
             initModal();
             var modalInfo = document.getElementById("modal-info");
-            modalInfo.innerHTML = "<p>"+JSON.parse(responseText).name+" "+JSON.parse(responseText).email+"</p>";
+            modalInfo.innerHTML = "Name: "+JSON.parse(responseText).name+"<br> Email: "+JSON.parse(responseText).email;
         })
     }
 
