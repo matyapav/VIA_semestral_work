@@ -2,7 +2,7 @@
  * Created by Pavel on 03.11.2016.
  */
 
-function initModal() {
+function initModal(callback) {
     // Get the modal
     var modal = document.getElementById('myModal');
 
@@ -28,4 +28,5 @@ function initModal() {
             modal.style.display = "none";
         }
     }
+    callback();
 }
