@@ -95,7 +95,7 @@ function markNearbyPlaces(results, status) {
                             setMarkerColor(markers[i].marker, markers[i].color);
                         });
                         setMarkerColor(marker, clickedColor)
-                        showInfoAboutPlace(place);
+                        showInfoAboutPlace(place, marker, isInUsersPlaces);
                     });
                 });
             });
@@ -123,7 +123,7 @@ function createMarkerOnMap(position, title, pinColor) {
     return marker;
 }
 
-function showInfoAboutPlace(place){
+function showInfoAboutPlace(place,marker, alreadyVisited){
 
     document.getElementById('place-name').innerText = place.name;
     document.getElementById('place-address').innerText = place.vicinity;
@@ -137,11 +137,21 @@ function showInfoAboutPlace(place){
 
     somePlaceIsSelected = true;
     console.log(place)
-    document.getElementById('iwasthere').addEventListener('click', function () {
-        var placeObj = {name: place.name, address: place.vicinity};
-        userId = localStorage.getItem("id");
-        markPlaceForUser(placeObj, userId);
-    })
+    if(!alreadyVisited) {
+        document.getElementById('iwasthere').addEventListener('click', function () {
+            var placeObj = {name: place.name, address: place.vicinity};
+            userId = localStorage.getItem("id");
+            markPlaceForUser(placeObj, userId);
+            for(var i=0; i< markers.length; i++){
+                if(markers[i].marker = marker){
+                    markers[i].color = "00ff00";
+                }
+            }
+        })
+    }else{
+        document.getElementById('iwasthere').innerHTML = "Nebyl jsem tady.";
+        //TODO unseen place
+    }
 }
 
 function setMarkerColor(marker, color) {
