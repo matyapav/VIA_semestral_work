@@ -75,15 +75,14 @@ function markNearbyPlaces(results, status) {
                     markers.push(marker);
                     marker.addListener('click', function(){
                         markers.forEach(function (v,i) {
-                            userPlaces.forEach(function (userPlace) {
-                                if(userPlace != null) {
-                                    if (userPlace.name == place.name) {
-                                        setMarkerColor(marker, "00ff00");
-                                    } else {
-                                        setMarkerColor(markers[i], defaultMarkerColor)
-                                    }
+                            setMarkerColor(markers[i], defaultMarkerColor);
+                        });
+                        userPlaces.forEach(function (userPlace) {
+                            if(userPlace != null) {
+                                if (userPlace.name == place.name) {
+                                    setMarkerColor(marker, "00ff00");
                                 }
-                            });
+                            }
                         });
                         setMarkerColor(marker, "7f3a34")
                         showInfoAboutPlace(place);
