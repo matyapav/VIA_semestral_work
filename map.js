@@ -136,10 +136,10 @@ function showInfoAboutPlace(place,marker, alreadyVisited){
     document.getElementById('actions').style = "visibility: visible";
 
     somePlaceIsSelected = true;
-    console.log(place)
+    console.log(place);
+    document.getElementById('iwasthere').removeEventListener('click',false);
     if(!alreadyVisited) {
         document.getElementById('iwasthere').innerHTML = "Byl jsem tu.";
-        document.getElementById('iwasthere').removeEventListener('click',false);
         document.getElementById('iwasthere').addEventListener('click', function () {
             var placeObj = {name: place.name, address: place.vicinity};
             userId = localStorage.getItem("id");
