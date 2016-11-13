@@ -137,20 +137,21 @@ function showInfoAboutPlace(place,marker, alreadyVisited){
 
     somePlaceIsSelected = true;
     console.log(place);
-    document.getElementById('iwasthere').removeEventListener('click', connectUserWithPlace, false);
+    var old_element = document.getElementById("iwasthere");
+    var new_element = old_element.cloneNode(true);
+    old_element.parentNode.replaceChild(new_element, old_element);
     if(!alreadyVisited) {
         document.getElementById('iwasthere').innerHTML = "Byl jsem tu.";
-        document.getElementById('iwasthere').addEventListener('click', connectUserWithPlace, false);
+        document.getElementById('iwasthere').addEventListener('click', function () {
+            var placeObj = {name: place.name, address: place.vicinity};
+            userId = localStorage.getItem("id");
+            markPlaceForUser(placeObj, userId);
+            getNearbyLocations();
+        })
     }else{
         document.getElementById('iwasthere').innerHTML = "Nebyl jsem tady.";
         //TODO unseen place
     }
-}
-function connectUserWithPlace(place) {
-    var placeObj = {name: place.name, address: place.vicinity};
-    userId = localStorage.getItem("id");
-    markPlaceForUser(placeObj, userId);
-    getNearbyLocations();
 }
 
 function setMarkerColor(marker, color) {
