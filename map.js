@@ -137,16 +137,16 @@ function showInfoAboutPlace(place,marker, alreadyVisited){
 
     somePlaceIsSelected = true;
     console.log(place);
-    document.getElementById('iwasthere').removeEventListener('click', connectUserWithPlace, false);
+    document.getElementById('iwasthere').removeEventListener('click', connectUserWithPlace(place), false);
     if(!alreadyVisited) {
         document.getElementById('iwasthere').innerHTML = "Byl jsem tu.";
-        document.getElementById('iwasthere').addEventListener('click', connectUserWithPlace, false);
+        document.getElementById('iwasthere').addEventListener('click', connectUserWithPlace(place), false);
     }else{
         document.getElementById('iwasthere').innerHTML = "Nebyl jsem tady.";
         //TODO unseen place
     }
 }
-function connectUserWithPlace() {
+function connectUserWithPlace(place) {
     var placeObj = {name: place.name, address: place.vicinity};
     userId = localStorage.getItem("id");
     markPlaceForUser(placeObj, userId);
