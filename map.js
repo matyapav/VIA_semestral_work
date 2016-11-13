@@ -65,7 +65,7 @@ function markNearbyPlaces(results, status) {
         var userId = localStorage.getItem("id");
         var userPlaces;
         if(userId != null && userId != undefined){
-            makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/places/"+userId, null, function (responseText) {
+            makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/places/user/"+userId, null, function (responseText) {
                 if(responseText){
                     userPlaces = JSON.parse(responseText);
                 }
