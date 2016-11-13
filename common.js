@@ -50,7 +50,7 @@ function markPlaceForUser(place, user_id) {
         if(place_id == null || place_id == undefined){
             place_id = insertPlaceIntoDB(place);
         }
-        makeCorsRequest("POST", "http://ivebeenthereapi-matyapav.rhcloud.com/places/"+place_id+"/"+user_id, null, function (responseText) {
+        makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/places/"+place_id+"/"+user_id, null, function (responseText) {
            if(responseText){
                console.log(JSON.parse(responseText).message);
            }
