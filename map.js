@@ -141,7 +141,7 @@ function showInfoAboutPlace(place){
 
     somePlaceIsSelected = true;
     console.log(place)
-    document.getElementsById('iwasthere').addEventListener('click', function () {
+    document.getElementById('iwasthere').addEventListener('click', function () {
         var placeObj = {name: place.name, address: place.vicinity, lat: place.geometry.location.lat, lng: place.geometry.location.lng}
         userId = localStorage.getItem("id");
         markPlaceForUser(placeObj, userId);
