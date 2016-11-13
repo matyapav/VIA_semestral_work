@@ -86,7 +86,7 @@ function checkIfPlaceAlreadyExistsInDb(placeName) {
     });
 }
 
-function inserPlaceIntoDB(place) {
+function insertPlaceIntoDB(place) {
     var data = "&name"+place.name+"&address"+place.address+"&lat"+place.latitude+"&lng"+place.longitude;
     makeCorsRequest("POST", "http://ivebeenthereapi-matyapav.rhcloud.com/places", data, function (responseText) {
         console.log(JSON.parse(responseText).message);
