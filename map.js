@@ -71,26 +71,21 @@ function markNearbyPlaces(results, status) {
                 }
                 results.forEach(function (v,i) {
                     var place = results[i];
-
-                    var isUsers = false;
+                    var marker = null;
+                    var color = null;
+                    var clickedColor = null;
                     userPlaces.forEach(function (userPlace) {
                         if(userPlace != null) {
                             if (encodeURIComponent(userPlace.name) == encodeURIComponent(place.name)) {
-                                isUsers = true;
+                                color = "00ff00";
+                                clickedColor = "006400";
+                            }else{
+                                color = defaultMarkerColor;
+                                clickedColor = "7f3a34";
                             }
+                            marker = createMarkerOnMap(place.geometry.location, place.name, color);
                         }
                     });
-
-                    var color = null;
-                    var clickedColor = null;
-                    if(isUsers){
-                        color = "00ff00";
-                        clickedColor = "006400";
-                    }else{
-                        color = defaultMarkerColor;
-                        clickedColor = "7f3a34";
-                    }
-                    var marker = createMarkerOnMap(place.geometry.location, place.name, color);
                     if(marker != null && color != null && clickedColor != null){
                         markers.push({placeName: place.name, marker: marker, color: color});
                         marker.addListener('click', function(){
