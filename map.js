@@ -76,10 +76,12 @@ function markNearbyPlaces(results, status) {
                     marker.addListener('click', function(){
                         markers.forEach(function (v,i) {
                             userPlaces.forEach(function (userPlace) {
-                                if(userPlace.name == place.name){
-                                    setMarkerColor(marker, "00ff00");
-                                }else{
-                                    setMarkerColor(markers[i], defaultMarkerColor)
+                                if(userPlace != null) {
+                                    if (userPlace.name == place.name) {
+                                        setMarkerColor(marker, "00ff00");
+                                    } else {
+                                        setMarkerColor(markers[i], defaultMarkerColor)
+                                    }
                                 }
                             });
                         });
