@@ -2,6 +2,7 @@ var map;
 var service;
 var actualPosition;
 var markers = [];
+var markersInfo = [];
 var defaultMarkerColor = "FE7569";
 var somePlaceIsSelected = false;
 
@@ -48,9 +49,10 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 function getNearbyLocations() {
     for( var i = 0; i < markers.length; i++ ) {
-        markers[i].marker.setMap(null);
+        markers[i].setMap(null);
     }
     markers = [];
+    markersInfo = [];
     var request = {
         location: actualPosition,
         radius: document.getElementById('radius-input').value,
@@ -87,10 +89,11 @@ function markNearbyPlaces(results, status) {
                         }
                     });
                     if(marker != null && color != null && clickedColor != null){
-                        markers.push({placeName: place.name, marker: marker, color: color});
+                        markers.push(marker);
+                        markersInfo.push({placeName: place.name, color: color});
                         marker.addListener('click', function(){
                             markers.forEach(function (v,i) {
-                                setMarkerColor(markers[i].marker, markers[i].color);
+                                setMarkerColor(markers[i], markersInfo[i].color);
                             });
                             setMarkerColor(marker, clickedColor)
                             showInfoAboutPlace(place);
@@ -105,7 +108,7 @@ function markNearbyPlaces(results, status) {
                 markers.push({placeName: place.name, marker: marker});
                 marker.addListener('click', function(){
                     markers.forEach(function (v,i) {
-                        setMarkerColor(markers[i].marker, defaultMarkerColor)
+                        setMarkerColor(markers[i], defaultMarkerColor)
                     });
                     setMarkerColor(marker, "7f3a34")
                     showInfoAboutPlace(place);
