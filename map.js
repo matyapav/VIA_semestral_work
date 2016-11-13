@@ -137,10 +137,10 @@ function showInfoAboutPlace(place,marker, alreadyVisited){
 
     somePlaceIsSelected = true;
     console.log(place);
-    document.getElementById('iwasthere').removeEventListener('click', connectUserWithPlace(place), false);
+    document.getElementById('iwasthere').removeEventListener('click', connectUserWithPlace, false);
     if(!alreadyVisited) {
         document.getElementById('iwasthere').innerHTML = "Byl jsem tu.";
-        document.getElementById('iwasthere').addEventListener('click', connectUserWithPlace(place), false);
+        document.getElementById('iwasthere').addEventListener('click', connectUserWithPlace, false);
     }else{
         document.getElementById('iwasthere').innerHTML = "Nebyl jsem tady.";
         //TODO unseen place
