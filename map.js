@@ -76,31 +76,31 @@ function markNearbyPlaces(results, status) {
                     var marker = null;
                     var color = null;
                     var clickedColor = null;
+                    var isInUsersPlaces = false;
                     userPlaces.forEach(function (userPlace) {
                         if(userPlace != null) {
                             if (encodeURIComponent(userPlace.name) == encodeURIComponent(place.name)) {
-                                color = "00ff00";
-                                clickedColor = "006400";
-                                marker = createMarkerOnMap(place.geometry.location, place.name, color);
-                            }else{
-                                color = defaultMarkerColor;
-                                clickedColor = "7f3a34";
-                                marker = createMarkerOnMap(place.geometry.location, place.name, color);
+                                isInUsersPlaces = true;
                             }
-
                         }
                     });
-                    if(marker != null && color != null && clickedColor != null){
-                        markers.push(marker);
-                        markersInfo.push({placeName: place.name, color: color});
-                        marker.addListener('click', function(){
-                            markers.forEach(function (v,i) {
-                                setMarkerColor(markers[i], markersInfo[i].color);
-                            });
-                            setMarkerColor(marker, clickedColor)
-                            showInfoAboutPlace(place);
-                        });
+                    if(isInUsersPlaces){
+                        color = "00ff00";
+                        clickedColor = "006400";
+                    }else{
+                        color = defaultMarkerColor;
+                        clickedColor = "7f3a34";
                     }
+                    var marker = createMarkerOnMap(place.geometry.location, place.name, color);
+                    markers.push(marker);
+                    markersInfo.push({placeName: place.name, color: color});
+                    marker.addListener('click', function(){
+                        markers.forEach(function (v,i) {
+                            setMarkerColor(markers[i], markersInfo[i].color);
+                        });
+                        setMarkerColor(marker, clickedColor)
+                        showInfoAboutPlace(place);
+                    });
                 });
             });
         }
