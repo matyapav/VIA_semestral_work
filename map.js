@@ -71,24 +71,27 @@ function markNearbyPlaces(results, status) {
                 }
                 results.forEach(function (v,i) {
                     var place = results[i];
-                    var marker = createMarkerOnMap(place.geometry.location, place.name, defaultMarkerColor );
-                    markers.push({placeName: place.name, marker: marker});
-                    marker.addListener('click', function(){
-                        markers.forEach(function (v,i) {
-                            userPlaces.forEach(function (userPlace) {
-                                if(userPlace != null) {
-                                    if (encodeURIComponent(userPlace.name) == encodeURIComponent(markers[i].placeName)) {
-                                        setMarkerColor(markers[i].marker, "00ff00");
-                                    }else{
-                                        setMarkerColor(markers[i].marker, defaultMarkerColor);
-                                    }
-                                }
-                            });
-                        });
-
-                        setMarkerColor(marker, "7f3a34")
-                        showInfoAboutPlace(place);
+                    var marker = null;
+                    userPlaces.forEach(function (userPlace) {
+                        if(userPlace != null) {
+                            if (encodeURIComponent(userPlace.name) == encodeURIComponent(place.name)) {
+                               marker = createMarkerOnMap(place.geometry.location, place.name, "00ff00");
+                            }else{
+                               marker = createMarkerOnMap(place.geometry.location, place.name, defaultMarkerColor );
+                            }
+                        }
                     });
+                    if(marker != null){
+                        markers.push({placeName: place.name, marker: marker});
+                        marker.addListener('click', function(){
+                            markers.forEach(function (v,i) {
+                                setMarkerColor(markers[i].marker, defaultMarkerColor);
+                            });
+
+                            setMarkerColor(marker, "7f3a34")
+                            showInfoAboutPlace(place);
+                        });
+                    }
                 });
             });
         }else{
