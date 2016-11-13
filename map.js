@@ -143,7 +143,7 @@ function showInfoAboutPlace(place){
     somePlaceIsSelected = true;
     console.log(place)
     document.getElementById('iwasthere').addEventListener('click', function () {
-        var placeObj = {name: place.name, address: place.vicinity}
+        var placeObj = {name: place.name, address: place.vicinity};
         userId = localStorage.getItem("id");
         markPlaceForUser(placeObj, userId);
     })
