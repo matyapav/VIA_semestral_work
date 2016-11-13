@@ -77,9 +77,11 @@ function checkIfPlaceAlreadyExistsInDb(placeName) {
         if(responseText){
             var places = JSON.parse(responseText);
             for (id in places){
-                if(places[id].name == placeName){
-                    return places[id]._id;
-                };
+                if(places[id] != null && places[id] != undefined) {
+                    if (encodeURIComponent(places[id].name) == encodeURIComponent(placeName)) {
+                        return places[id]._id;
+                    }
+                }
             }
         }
         return null;
