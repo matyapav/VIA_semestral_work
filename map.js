@@ -62,18 +62,37 @@ function getNearbyLocations() {
 
 function markNearbyPlaces(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
-        results.forEach(function (v,i) {
-            var place = results[i];
-            var marker = createMarkerOnMap(place.geometry.location, place.name, defaultMarkerColor );
-            markers.push(marker);
-            marker.addListener('click', function(){
-                markers.forEach(function (v,i) {
-                    setMarkerColor(markers[i], defaultMarkerColor);
-                })
-                setMarkerColor(marker, "7f3a34")
-                showInfoAboutPlace(place);
+        var userId = localStorage.get("id");
+        var userPlaces;
+        if(userId != null && userId != undefined){
+            makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/places"+userId, null, function (responseText) {
+                if(responseText){
+                    userPlaces = JSON.parse(responseText);
+                }
+                results.forEach(function (v,i) {
+                    var place = results[i];
+                    var marker = createMarkerOnMap(place.geometry.location, place.name, defaultMarkerColor );
+                    markers.push(marker);
+                    marker.addListener('click', function(){
+                        markers.forEach(function (v,i) {
+                            userPlaces.forEach(function (userPlace) {
+                                if(userPlace.name == place.name){
+                                    setMarkerColor(marker, "00ff00");
+                                }else{
+                                    setMarkerColor(markers[i], defaultMarkerColor)
+                                }
+                            });
+                        });
+                        setMarkerColor(marker, "7f3a34")
+                        showInfoAboutPlace(place);
+                    });
+                });
             });
-        });
+        }else{
+
+        }
+
+
     }
 }
 
@@ -111,6 +130,11 @@ function showInfoAboutPlace(place){
 
     somePlaceIsSelected = true;
     console.log(place)
+    document.getElementsById('iwasthere').addEventListener('click', function () {
+        var placeObj = {name: place.name, address: place.vicinity, lat: place.geometry.location.lat, lng: place.geometry.location.lng}
+        userId = localStorage.getItem("id");
+        markPlaceForUser(placeObj, userId);
+    })
 }
 
 function setMarkerColor(marker, color) {

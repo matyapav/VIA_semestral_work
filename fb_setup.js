@@ -71,14 +71,7 @@ function loginUserIntoApplication() {
             var alreadyExists = false;
             if(responseText){
                 var users = JSON.parse(responseText);
-                for (id in users){
-                    if(users[id].email == response.email){
-                        alreadyExists = true;
-                        userIdByEmail = users[id]._id;
-                        saveUserIdInLocalStorage(userIdByEmail);
-                        break;
-                    };
-                }
+                alreadyExists = checkIfUserAlreadyExists(users);
             }
             if(!alreadyExists){
                 var data = "name="+response.name+"&email="+response.email;
@@ -87,7 +80,11 @@ function loginUserIntoApplication() {
                     userIdByEmail = JSON.parse(responseText).id;
                     saveUserIdInLocalStorage(userIdByEmail);
                 });
+            }else{
+                userIdByEmail = users[id]._id;
+                saveUserIdInLocalStorage(userIdByEmail);
             }
+
             console.log(localStorage.getItem("id"));
             performLoginActions();
             document.getElementById('status').innerHTML =
@@ -96,6 +93,15 @@ function loginUserIntoApplication() {
         });
 
     });
+}
+
+function checkIfUserAlreadyExists(users){
+    for (id in users){
+        if(users[id].email == response.email){
+            return true;
+        };
+    }
+    return false;
 }
 
 function  showUserInfo() {
@@ -156,46 +162,4 @@ var logout_event = function(response) {
     console.log(response.status);
     console.log(response);
     checkLoginState();
-}
-
-function createCORSRequest(method, url) {
-    var xhr = new XMLHttpRequest();
-    if ("withCredentials" in xhr) {
-        // XHR for Chrome/Firefox/Opera/Safari.
-        xhr.open(method, url, true);
-    } else if (typeof XDomainRequest != "undefined") {
-        // XDomainRequest for IE.
-        xhr = new XDomainRequest();
-        xhr.open(method, url);
-    } else {
-        // CORS not supported.
-        xhr = null;
-        console.log("CORS are not supported by this browser");
-    }
-    return xhr;
-}
-
-function makeCorsRequest(method, url, data, callback) {
-    var xhr = createCORSRequest(method, url);
-    if (!xhr) {
-        alert('CORS not supported');
-        return null;
-    }
-
-    xhr.onload = function() {
-        callback(xhr.responseText);
-    };
-
-    xhr.onerror = function() {
-        alert('Woops, there was an error making the request.');
-        return null;
-    };
-
-    if(data && method == "POST"){
-        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-        xhr.send(data)
-    }else{
-        xhr.send();
-    }
-
 }
