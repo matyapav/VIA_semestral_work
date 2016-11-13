@@ -46,39 +46,41 @@ function makeCorsRequest(method, url, data, callback) {
 
 function markPlaceForUser(place, user_id) {
     if(place != null && place != undefined && user_id != null && user_id != undefined){
-        var place_id = checkIfPlaceAlreadyExistsInDb(place.name);
-        if(place_id == null || place_id == undefined){
-            place_id = insertPlaceIntoDB(place);
-            alert(place_id);
-        }
-        makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/places/"+place_id+"/"+user_id, null, function (responseText) {
-           if(responseText){
-               console.log(JSON.parse(responseText).message);
-           }
+        checkIfPlaceAlreadyExistsInDb(place.name, function (place_id) {
+            if(place_id == null || place_id == undefined){
+                insertPlaceIntoDB(place, function (place_id) {
+                    makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/places/"+place_id+"/"+user_id, null, function (responseText) {
+                        if(responseText){
+                            console.log(JSON.parse(responseText).message);
+                        }
+                    });
+                });
+            }
         });
     }
 }
 
-function checkIfPlaceAlreadyExistsInDb(placeName) {
+function checkIfPlaceAlreadyExistsInDb(placeName, callback) {
     makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/places", null, function (responseText) {
+        var placeId = null;
         if(responseText){
             var places = JSON.parse(responseText);
             for (id in places){
                 if(places[id] != null && places[id] != undefined) {
                     if (encodeURIComponent(places[id].name) == encodeURIComponent(placeName)) {
-                        return places[id]._id;
+                        placeId = places[id]._id;
                     }
                 }
             }
         }
-        return null;
+        callback(placeId)
     });
 }
 
-function insertPlaceIntoDB(place) {
+function insertPlaceIntoDB(place, callback) {
     var data = "name="+encodeURIComponent(place.name)+"&address="+encodeURIComponent(place.address);
     makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/places", data, function (responseText) {
         console.log(JSON.parse(responseText).message);
-        return(JSON.parse(responseText).id);
+        callback(JSON.parse(responseText).id);
     })
 }
