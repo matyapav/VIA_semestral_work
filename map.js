@@ -48,13 +48,13 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 function getNearbyLocations() {
     for( var i = 0; i < markers.length; i++ ) {
-        markers[i].setMap(null);
+        markers[i].marker.setMap(null);
     }
     markers = [];
     var request = {
         location: actualPosition,
         radius: document.getElementById('radius-input').value,
-        types: ['restaurant', 'food'],
+        types: ['restaurant'],
     };
     service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, markNearbyPlaces);
