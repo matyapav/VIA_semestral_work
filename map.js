@@ -47,7 +47,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 function getNearbyLocations() {
     for( var i = 0; i < markers.length; i++ ) {
-        markers[i].setMap(null);
+        markers[i].marker.setMap(null);
     }
     markers = [];
     var request = {
@@ -89,10 +89,10 @@ function markNearbyPlaces(results, status) {
                         clickedColor = "ff0000";
                     }
                     var marker = createMarkerOnMap(place.geometry.location, place.name, color);
-                    markers.push(marker);
+                    markers.push({marker: marker, color: color});
                     marker.addListener('click', function(){
                         markers.forEach(function (v,i) {
-                            setMarkerColor(markers[i], defaultMarkerColor);
+                            setMarkerColor(markers[i].marker, markers[i].color);
                         });
                         setMarkerColor(marker, clickedColor)
                         showInfoAboutPlace(place);
