@@ -71,24 +71,33 @@ function markNearbyPlaces(results, status) {
                 }
                 results.forEach(function (v,i) {
                     var place = results[i];
-                    var marker = null;
+
+                    var isUsers = false;
                     userPlaces.forEach(function (userPlace) {
                         if(userPlace != null) {
                             if (encodeURIComponent(userPlace.name) == encodeURIComponent(place.name)) {
-                               marker = createMarkerOnMap(place.geometry.location, place.name, "00ff00");
-                            }else{
-                               marker = createMarkerOnMap(place.geometry.location, place.name, defaultMarkerColor );
+                                isUsers = true;
                             }
                         }
                     });
-                    if(marker != null){
-                        markers.push({placeName: place.name, marker: marker});
+
+                    var color = null;
+                    var clickedColor = null;
+                    if(isUsers){
+                        color = "00ff00";
+                        clickedColor = "006400";
+                    }else{
+                        color = defaultMarkerColor;
+                        clickedColor = "7f3a34";
+                    }
+                    var marker = createMarkerOnMap(place.geometry.location, place.name, color);
+                    if(marker != null && color != null && clickedColor != null){
+                        markers.push({placeName: place.name, marker: marker, color: color});
                         marker.addListener('click', function(){
                             markers.forEach(function (v,i) {
-                                setMarkerColor(markers[i].marker, defaultMarkerColor);
+                                setMarkerColor(markers[i].marker, markers[i].color);
                             });
-
-                            setMarkerColor(marker, "7f3a34")
+                            setMarkerColor(marker, clickedColor)
                             showInfoAboutPlace(place);
                         });
                     }
