@@ -77,7 +77,7 @@ function markNearbyPlaces(results, status) {
                         markers.forEach(function (v,i) {
                             userPlaces.forEach(function (userPlace) {
                                 if(userPlace != null) {
-                                    if (userPlace.name == markers[i].placeName) {
+                                    if (encodeURIComponent(userPlace.name) == encodeURIComponent(markers[i].placeName)) {
                                         setMarkerColor(markers[i].marker, "00ff00");
                                     }else{
                                         setMarkerColor(markers[i].marker, defaultMarkerColor);

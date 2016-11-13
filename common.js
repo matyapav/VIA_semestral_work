@@ -87,7 +87,8 @@ function checkIfPlaceAlreadyExistsInDb(placeName) {
 }
 
 function insertPlaceIntoDB(place) {
-    var data = {name:place.name, address: place.address};
+
+    var data = "name="+encodeURIComponent(place.name)+"&address="+encodeURIComponent(place.address);
     makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/places", data, function (responseText) {
         console.log(JSON.parse(responseText).message);
         return(JSON.parse(responseText).id);
