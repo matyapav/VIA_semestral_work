@@ -56,7 +56,7 @@ function markPlaceForUser(place, user_id) {
                     });
                 });
             }else{
-                makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/connectPlaceToUser/"+place_id+"/user/"+user_id, null, function (responseText) {
+                makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/connectPlaceToUser/"+place_id+"/user/"+user_id, null, function (responseText) {
                     if(responseText){
                         console.log(JSON.parse(responseText).message);
                     }
