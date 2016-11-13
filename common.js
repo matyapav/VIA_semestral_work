@@ -49,27 +49,14 @@ function markPlaceForUser(place, user_id) {
         var place_id = checkIfPlaceAlreadyExistsInDb(place.name);
         if(place_id == null || place_id == undefined){
             place_id = insertPlaceIntoDB(place);
+            alert(place_id);
         }
         makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/places/"+place_id+"/"+user_id, null, function (responseText) {
            if(responseText){
                console.log(JSON.parse(responseText).message);
            }
-           setMarkerColor()
         });
     }
-}
-
-function getPlacesIdByName() {
-    makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/places", null, function (responseText) {
-        if(responseText){
-            var places = JSON.parse(responseText);
-            for (id in places){
-                if(places[id].name == placeName){
-                    return true;
-                };
-            }
-        }
-    })
 }
 
 function checkIfPlaceAlreadyExistsInDb(placeName) {
@@ -89,7 +76,6 @@ function checkIfPlaceAlreadyExistsInDb(placeName) {
 }
 
 function insertPlaceIntoDB(place) {
-
     var data = "name="+encodeURIComponent(place.name)+"&address="+encodeURIComponent(place.address);
     makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/places", data, function (responseText) {
         console.log(JSON.parse(responseText).message);
