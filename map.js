@@ -162,7 +162,7 @@ function showInfoAboutPlace(place,marker, alreadyVisited){
                         }
                     });
                     if(placeId != null){
-                        makeCorsRequest("DELETE", "https://ivebeenthereapi-matyapav.rhcloud.com/connectPlaceToUser/"+placeId+"/user/"+userId, null, function (responseText) {
+                        makeCorsRequest("PUT", "https://ivebeenthereapi-matyapav.rhcloud.com/connectPlaceToUser/"+placeId+"/user/"+userId, null, function (responseText) {
                             if(responseText){
                                 console.log(JSON.parse(responseText).message);
                                 getNearbyLocations();
