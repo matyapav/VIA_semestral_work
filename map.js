@@ -72,6 +72,7 @@ function markNearbyPlaces(results, status) {
                     var place = results[i];
                     var marker = null;
                     var color = null;
+                    var clickedColor = null;
                     var isInUsersPlaces = false;
                     userPlaces.forEach(function (userPlace) {
                         if(userPlace != null) {
@@ -82,8 +83,10 @@ function markNearbyPlaces(results, status) {
                     });
                     if(isInUsersPlaces){
                         color = "00ff00";
+                        clickedColor = "006400";
                     }else{
                         color = defaultMarkerColor;
+                        clickedColor = "ff0000";
                     }
                     var marker = createMarkerOnMap(place.geometry.location, place.name, color);
                     markers.push(marker);
