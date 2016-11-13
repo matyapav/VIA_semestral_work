@@ -55,6 +55,12 @@ function markPlaceForUser(place, user_id) {
                         }
                     });
                 });
+            }else{
+                makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/places/"+place_id+"/"+user_id, null, function (responseText) {
+                    if(responseText){
+                        console.log(JSON.parse(responseText).message);
+                    }
+                });
             }
         });
     }
