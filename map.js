@@ -72,18 +72,20 @@ function markNearbyPlaces(results, status) {
                 results.forEach(function (v,i) {
                     var place = results[i];
                     var marker = createMarkerOnMap(place.geometry.location, place.name, defaultMarkerColor );
-                    markers.push(marker);
+                    markers.push({placeName: place.name, marker: marker});
                     marker.addListener('click', function(){
                         markers.forEach(function (v,i) {
-                            setMarkerColor(markers[i], defaultMarkerColor);
-                        });
-                        userPlaces.forEach(function (userPlace) {
-                            if(userPlace != null) {
-                                if (userPlace.name == place.name) {
-                                    setMarkerColor(marker, "00ff00");
+                            userPlaces.forEach(function (userPlace) {
+                                if(userPlace != null) {
+                                    if (userPlace.name == markers[i].placeName) {
+                                        setMarkerColor(markers[i].marker, "00ff00");
+                                    }else{
+                                        setMarkerColor(markers[i].marker, defaultMarkerColor);
+                                    }
                                 }
-                            }
+                            });
                         });
+
                         setMarkerColor(marker, "7f3a34")
                         showInfoAboutPlace(place);
                     });
@@ -93,10 +95,10 @@ function markNearbyPlaces(results, status) {
             results.forEach(function (v,i) {
                 var place = results[i];
                 var marker = createMarkerOnMap(place.geometry.location, place.name, defaultMarkerColor );
-                markers.push(marker);
+                markers.push({placeName: place.name, marker: marker});
                 marker.addListener('click', function(){
                     markers.forEach(function (v,i) {
-                        setMarkerColor(markers[i], defaultMarkerColor)
+                        setMarkerColor(markers[i].marker, defaultMarkerColor)
                     });
                     setMarkerColor(marker, "7f3a34")
                     showInfoAboutPlace(place);
