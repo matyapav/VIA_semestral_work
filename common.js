@@ -49,14 +49,14 @@ function markPlaceForUser(place, user_id) {
         checkIfPlaceAlreadyExistsInDb(place.name, function (place_id) {
             if(place_id == null || place_id == undefined){
                 insertPlaceIntoDB(place, function (place_id) {
-                    makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/places/"+place_id+"/"+user_id, null, function (responseText) {
+                    makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/places/connectToUser/"+place_id+"/"+user_id, null, function (responseText) {
                         if(responseText){
                             console.log(JSON.parse(responseText).message);
                         }
                     });
                 });
             }else{
-                makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/places/"+place_id+"/"+user_id, null, function (responseText) {
+                makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/places/connectToUser/"+place_id+"/"+user_id, null, function (responseText) {
                     if(responseText){
                         console.log(JSON.parse(responseText).message);
                     }
