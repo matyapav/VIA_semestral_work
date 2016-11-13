@@ -143,11 +143,7 @@ function showInfoAboutPlace(place,marker, alreadyVisited){
             var placeObj = {name: place.name, address: place.vicinity};
             userId = localStorage.getItem("id");
             markPlaceForUser(placeObj, userId);
-            for(var i=0; i< markers.length; i++){
-                if(markers[i].marker = marker){
-                    markers[i].color = "00ff00";
-                }
-            }
+            getNearbyLocations();
         })
     }else{
         document.getElementById('iwasthere').innerHTML = "Nebyl jsem tady.";
