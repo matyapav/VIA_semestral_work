@@ -138,6 +138,7 @@ function showInfoAboutPlace(place,marker, alreadyVisited){
     somePlaceIsSelected = true;
     console.log(place)
     if(!alreadyVisited) {
+        document.getElementById('iwasthere').innerHTML = "Byl jsem tu.";
         document.getElementById('iwasthere').addEventListener('click', function () {
             var placeObj = {name: place.name, address: place.vicinity};
             userId = localStorage.getItem("id");
