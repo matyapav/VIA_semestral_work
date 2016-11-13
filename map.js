@@ -81,11 +81,13 @@ function markNearbyPlaces(results, status) {
                             if (encodeURIComponent(userPlace.name) == encodeURIComponent(place.name)) {
                                 color = "00ff00";
                                 clickedColor = "006400";
+                                marker = createMarkerOnMap(place.geometry.location, place.name, color);
                             }else{
                                 color = defaultMarkerColor;
                                 clickedColor = "7f3a34";
+                                marker = createMarkerOnMap(place.geometry.location, place.name, color);
                             }
-                            marker = createMarkerOnMap(place.geometry.location, place.name, color);
+
                         }
                     });
                     if(marker != null && color != null && clickedColor != null){
