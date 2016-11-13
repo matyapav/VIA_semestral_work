@@ -71,7 +71,7 @@ function loginUserIntoApplication() {
             var alreadyExists = false;
             if(responseText){
                 var users = JSON.parse(responseText);
-                alreadyExists = checkIfUserAlreadyExists(users);
+                alreadyExists = checkIfUserAlreadyExists(users, response.email);
             }
             if(!alreadyExists){
                 var data = "name="+response.name+"&email="+response.email;
@@ -95,9 +95,9 @@ function loginUserIntoApplication() {
     });
 }
 
-function checkIfUserAlreadyExists(users){
+function checkIfUserAlreadyExists(users, email){
     for (id in users){
-        if(users[id].email == response.email){
+        if(users[id].email == email){
             return true;
         };
     }
