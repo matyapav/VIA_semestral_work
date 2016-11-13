@@ -149,7 +149,29 @@ function showInfoAboutPlace(place,marker, alreadyVisited){
         })
     }else{
         document.getElementById('iwasthere').innerHTML = "Nebyl jsem tady.";
-        //TODO unseen place
+        document.getElementById('iwasthere').addEventListener('click', function () {
+            var userId = localStorage.getItem("id");
+            makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/userPlaces/"+userId, null, function (responseText) {
+                if(responseText){
+                    console.log(JSON.parse(responseText));
+                    var places = JSON.parse(responseText);
+                    var placeId = null;
+                    places.forEach(function (p) {
+                        if(p.name == place.name){
+                            placeId = p._id;
+                        }
+                    });
+                    if(placeId != null){
+                        makeCorsRequest("DELETE", "https://ivebeenthereapi-matyapav.rhcloud.com/connectPlaceToUser/"+placeId+"/user/"+userId, null, function (responseText) {
+                            if(responseText){
+                                console.log(JSON.parse(responseText).message);
+                                getNearbyLocations();
+                            }
+                        });
+                    }
+                }
+            });
+        });
     }
 }
 
