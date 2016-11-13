@@ -44,7 +44,7 @@ function makeCorsRequest(method, url, data, callback) {
 
 }
 
-function markPlaceForUser(place, user_id) {
+function markPlaceForUser(place, user_id, callback) {
     if(place != null && place != undefined && user_id != null && user_id != undefined){
         checkIfPlaceAlreadyExistsInDb(place.name, function (place_id) {
             if(place_id == null || place_id == undefined){
@@ -52,6 +52,7 @@ function markPlaceForUser(place, user_id) {
                     makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/connectPlaceToUser/"+place_id+"/user/"+user_id, null, function (responseText) {
                         if(responseText){
                             console.log(JSON.parse(responseText).message);
+                            callback();
                         }
                     });
                 });
@@ -59,6 +60,7 @@ function markPlaceForUser(place, user_id) {
                 makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/connectPlaceToUser/"+place_id+"/user/"+user_id, null, function (responseText) {
                     if(responseText){
                         console.log(JSON.parse(responseText).message);
+                        callback();
                     }
                 });
             }
