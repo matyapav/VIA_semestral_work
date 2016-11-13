@@ -89,10 +89,19 @@ function markNearbyPlaces(results, status) {
                 });
             });
         }else{
-
+            results.forEach(function (v,i) {
+                var place = results[i];
+                var marker = createMarkerOnMap(place.geometry.location, place.name, defaultMarkerColor );
+                markers.push(marker);
+                marker.addListener('click', function(){
+                    markers.forEach(function (v,i) {
+                        setMarkerColor(markers[i], defaultMarkerColor)
+                    });
+                    setMarkerColor(marker, "7f3a34")
+                    showInfoAboutPlace(place);
+                });
+            });
         }
-
-
     }
 }
 
