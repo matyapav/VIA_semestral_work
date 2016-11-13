@@ -148,6 +148,8 @@ function performLoginActions() {
     if(somePlaceIsSelected){
         document.getElementById('actions').style = "visibility: visible";
     }
+    document.getElementById('radius-input').addEventListener('change', getNearbyLocations);
+    getNearbyLocations();
 }
 
 function performLogoutActions(){

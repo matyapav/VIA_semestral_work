@@ -2,7 +2,6 @@ var map;
 var service;
 var actualPosition;
 var markers = [];
-var markersInfo = [];
 var defaultMarkerColor = "FE7569";
 var somePlaceIsSelected = false;
 
@@ -29,8 +28,7 @@ function initMap() {
             map.setCenter(actualPosition);
             console.log("map initialized");
 
-            document.getElementById('radius-input').addEventListener('change', getNearbyLocations);
-            getNearbyLocations();
+
         }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
         });
@@ -52,7 +50,6 @@ function getNearbyLocations() {
         markers[i].setMap(null);
     }
     markers = [];
-    markersInfo = [];
     var request = {
         location: actualPosition,
         radius: document.getElementById('radius-input').value,
@@ -75,7 +72,6 @@ function markNearbyPlaces(results, status) {
                     var place = results[i];
                     var marker = null;
                     var color = null;
-                    var clickedColor = null;
                     var isInUsersPlaces = false;
                     userPlaces.forEach(function (userPlace) {
                         if(userPlace != null) {
@@ -86,17 +82,14 @@ function markNearbyPlaces(results, status) {
                     });
                     if(isInUsersPlaces){
                         color = "00ff00";
-                        clickedColor = "006400";
                     }else{
                         color = defaultMarkerColor;
-                        clickedColor = "7f3a34";
                     }
                     var marker = createMarkerOnMap(place.geometry.location, place.name, color);
                     markers.push(marker);
-                    markersInfo.push({placeName: place.name, color: color});
                     marker.addListener('click', function(){
                         markers.forEach(function (v,i) {
-                            setMarkerColor(markers[i], markersInfo[i].color);
+                            setMarkerColor(markers[i], defaultMarkerColor);
                         });
                         setMarkerColor(marker, clickedColor)
                         showInfoAboutPlace(place);
