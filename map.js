@@ -46,10 +46,14 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 }
 
 function getNearbyLocations() {
+    //clear previous markers
     for( var i = 0; i < markers.length; i++ ) {
         markers[i].marker.setMap(null);
     }
     markers = [];
+    //unselect selected place
+    clearTable();
+    //make request for new radius
     var request = {
         location: actualPosition,
         radius: document.getElementById('radius-input').value,
@@ -125,6 +129,7 @@ function createMarkerOnMap(position, title, pinColor) {
 
 function showInfoAboutPlace(place,marker, alreadyVisited){
 
+    //show information in table
     document.getElementById('place-name').innerText = place.name;
     document.getElementById('place-address').innerText = place.vicinity;
     if(place.opening_hours != null){
@@ -132,14 +137,15 @@ function showInfoAboutPlace(place,marker, alreadyVisited){
     }else{
         document.getElementById('place-open').innerText = "-";
     }
-
     document.getElementById('actions').style = "visibility: visible";
-
     somePlaceIsSelected = true;
+
     console.log(place);
+    //clone element in order to remove all action listeners on it
     var old_element = document.getElementById("iwasthere");
     var new_element = old_element.cloneNode(true);
     old_element.parentNode.replaceChild(new_element, old_element);
+
     if(!alreadyVisited) {
         document.getElementById('iwasthere').innerHTML = "Byl jsem tu.";
         document.getElementById('iwasthere').addEventListener('click', function () {
@@ -148,6 +154,7 @@ function showInfoAboutPlace(place,marker, alreadyVisited){
             markPlaceForUser(placeObj, userId, getNearbyLocations);
         })
     }else{
+        //TODO move to another method
         document.getElementById('iwasthere').innerHTML = "Nebyl jsem tady.";
         document.getElementById('iwasthere').addEventListener('click', function () {
             var userId = localStorage.getItem("id");
@@ -173,6 +180,16 @@ function showInfoAboutPlace(place,marker, alreadyVisited){
             });
         });
     }
+}
+
+function clearTable() {
+    document.getElementById('place-name').innerText = "-";
+    document.getElementById('place-address').innerText = "-";
+    document.getElementById('place-open').innerText = "-";
+    document.getElementById('actions').style = "visibility: hidden";
+
+    somePlaceIsSelected = false;
+
 }
 
 function setMarkerColor(marker, color) {
