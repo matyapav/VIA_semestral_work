@@ -62,7 +62,7 @@ function getNearbyLocations() {
 
 function markNearbyPlaces(results, status) {
     if (status == google.maps.places.PlacesServiceStatus.OK) {
-        var userId = localStorage.get("id");
+        var userId = localStorage.getItem("id");
         var userPlaces;
         if(userId != null && userId != undefined){
             makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/places"+userId, null, function (responseText) {
