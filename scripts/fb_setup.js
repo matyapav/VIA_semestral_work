@@ -144,6 +144,12 @@ function logout(){
     }
 }
 
+function getFriends(){
+    FB.api('me/friends', { fields: 'id, first_name,picture', limit: 6 },function(response){
+        console.log(response);
+    });
+}
+
 function performLoginActions() {
     document.getElementById('login_btn').style = "display: none";
     document.getElementById('logout_btn').style = "display: block";

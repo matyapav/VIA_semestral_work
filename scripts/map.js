@@ -79,7 +79,6 @@ function markNearbyPlaces(results, status) {
                 }
                 results.forEach(function (v,i) {
                     var place = results[i];
-                    var marker = null;
                     var color = null;
                     var clickedColor = null;
                     var isInUsersPlaces = false;
@@ -132,8 +131,7 @@ function createMarkerOnMap(position, title, pinColor) {
     return marker;
 }
 
-function showInfoAboutPlace(place,marker, alreadyVisited){
-
+function setPlaceTable(place) {
     //show information in table
     document.getElementById('place-name').innerText = place.name;
     document.getElementById('place-address').innerText = place.vicinity;
@@ -143,48 +141,65 @@ function showInfoAboutPlace(place,marker, alreadyVisited){
         document.getElementById('place-open').innerText = "-";
     }
     document.getElementById('actions').style = "visibility: visible";
-    somePlaceIsSelected = true;
+}
 
+function findPlaceId(place, places){
+    places.forEach(function (p) {
+        if(p.name == place.name){
+            return p._id;
+        }
+    });
+    return null;
+}
+
+function showInfoAboutPlace(place,marker, alreadyVisited){
     console.log(place);
+    setPlaceTable(place)
+    somePlaceIsSelected = true;
+    getFriends();
     //clone element in order to remove all action listeners on it
     var old_element = document.getElementById("iwasthere");
     var new_element = old_element.cloneNode(true);
     old_element.parentNode.replaceChild(new_element, old_element);
 
+    var userId = localStorage.getItem("id");
+
     if(!alreadyVisited) {
         document.getElementById('iwasthere').innerHTML = "Byl jsem tu.";
         document.getElementById('iwasthere').addEventListener('click', function () {
-            var placeObj = {name: place.name, address: place.vicinity};
-            userId = localStorage.getItem("id");
-            markPlaceForUser(placeObj, userId, getNearbyLocations);
+            connectPlaceAndUser(place, userId);
         })
+
     }else{
-        //TODO move to another method
         document.getElementById('iwasthere').innerHTML = "Nebyl jsem tady.";
         document.getElementById('iwasthere').addEventListener('click', function () {
-            var userId = localStorage.getItem("id");
-            makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/userPlaces/"+userId, null, function (responseText) {
-                if(responseText){
-                    console.log(JSON.parse(responseText));
-                    var places = JSON.parse(responseText);
-                    var placeId = null;
-                    places.forEach(function (p) {
-                        if(p.name == place.name){
-                            placeId = p._id;
-                        }
-                    });
-                    if(placeId != null){
-                        makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/disconnectPlaceAndUser/"+placeId+"/user/"+userId, null, function (responseText) {
-                            if(responseText){
-                                console.log(JSON.parse(responseText).message);
-                                getNearbyLocations();
-                            }
-                        });
-                    }
-                }
-            });
+            disconnectPlaceAndUser(place, userId);
         });
+
     }
+}
+
+function connectPlaceAndUser(place, userId) {
+    var placeObj = {name: place.name, address: place.vicinity};
+    markPlaceForUser(placeObj, userId, getNearbyLocations);
+}
+
+function disconnectPlaceAndUser(place, userId){
+    makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/userPlaces/"+userId, null, function (responseText) {
+        if(responseText){
+            console.log(JSON.parse(responseText));
+            var places = JSON.parse(responseText);
+            var placeId = findPlaceId(place, places);
+            if(placeId != null){
+                makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/disconnectPlaceAndUser/"+placeId+"/user/"+userId, null, function (responseText) {
+                    if(responseText){
+                        console.log(JSON.parse(responseText).message);
+                        getNearbyLocations();
+                    }
+                });
+            }
+        }
+    });
 }
 
 function clearTable() {
