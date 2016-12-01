@@ -206,6 +206,7 @@ function clearTable() {
     document.getElementById('place-name').innerText = "-";
     document.getElementById('place-address').innerText = "-";
     document.getElementById('place-open').innerText = "-";
+    document.getElementById('place-friends').innerText="-";
     document.getElementById('actions').style = "visibility: hidden";
 
     somePlaceIsSelected = false;

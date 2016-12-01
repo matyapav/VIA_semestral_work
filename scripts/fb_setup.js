@@ -146,6 +146,11 @@ function logout(){
 
 function getFriends(){
     FB.api('me/friends', { fields: 'id, first_name,picture', limit: 6 },function(response){
+        var data = JSON.parse(response).data;
+        data.forEach(function (friend) {
+            var photoUrl = friend.data.url;
+            document.getElementById("place-friends").innerHTML+= "<img src='"+photoUrl+"'>"
+        })
         console.log(response);
     });
 }
