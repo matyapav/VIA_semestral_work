@@ -145,7 +145,7 @@ function logout(){
 }
 
 function getFriends(placeName, placeAddress){
-    makeCorsRequest("GET", "https://ivebeenthereapi.rhcloud.com/users", null, function (response) {
+    makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/users", null, function (response) {
         var users = JSON.parse(response);
         FB.api('me/friends', { fields: 'id, first_name,picture', limit: 6 },function(response){
             console.log(response);
