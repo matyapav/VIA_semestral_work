@@ -138,8 +138,10 @@ function fblogin() {
 }
 
 function logout(){
-    localStorage.removeItem("id");
-    performLogoutActions();
+    if(confirm("Do you really want to logout?")){
+        localStorage.removeItem("id");
+        performLogoutActions();
+    }
 }
 
 function performLoginActions() {
