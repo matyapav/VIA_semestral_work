@@ -64,8 +64,8 @@ window.fbAsyncInit = function() {
 
 function loginUserIntoApplication() {
     console.log('Welcome!  Fetching your information.... ');
-    FB.api('/me',{ fields: 'name, email' }, function(response) {
-        console.log('Successful login for: ' + response.name + " "+response.email);
+    FB.api('/me',{ fields: 'id, name, email' }, function(response) {
+        console.log('Successful login for: ' + response.name + " "+response.email+" "+response.id);
         makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/users", null, function (responseText) {
             var userIdByEmail = null;
             var alreadyExists = false;
