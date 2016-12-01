@@ -150,7 +150,11 @@ function getFriends(){
         var data = response.data;
         data.forEach(function (friend) {
             var photoUrl = friend.picture.data.url;
-            document.getElementById("place-friends").innerHTML+= "<img src='"+photoUrl+"'>"
+            FB.api('/'+friend.id,{ fields: 'email' }, function (response) {
+                console.log(response);
+            })
+            document.getElementById("place-friends").innerText = "";
+            document.getElementById("place-friends").innerHTML+= "<img src='"+photoUrl+"' style='width: 30px; padding: 3px'>"
         })
 
     });
