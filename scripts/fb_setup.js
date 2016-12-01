@@ -152,7 +152,7 @@ function getFriends(placeName, placeAddress){
             var data = response.data;
             data.forEach(function (friend) {
                 users.forEach(function (user) {
-                    if(user.fbid == friend.id && user.places.contains(place)){
+                    if(user.fbid == friend.id){
                         user.places.forEach(function (place) {
                             if(place.name == placeName && place.address == placeAddress){
                                 var photoUrl = friend.picture.data.url;
