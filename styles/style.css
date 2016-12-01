@@ -4,7 +4,7 @@
     margin: auto;
 }
 
-#place-name, #place-address, #place-open, #place-actions{
+#place-name, #place-address, #place-open, #place-actions, #place-friends{
     text-align: right;
 }
 
