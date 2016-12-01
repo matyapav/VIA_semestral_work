@@ -157,6 +157,10 @@ function performLogoutActions(){
     document.getElementById('login_btn').style = "display: block";
     document.getElementById('logout_btn').style = "display: none";
     document.getElementById('actions').style = "visibility: hidden";
+    //clear previous markers
+    clearMap();
+    //unselect selected place
+    clearTable();
 }
 
 var logout_event = function(response) {

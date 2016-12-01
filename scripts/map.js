@@ -45,12 +45,17 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
         'Error: Your browser doesn\'t support geolocation.');
 }
 
-function getNearbyLocations() {
-    //clear previous markers
+function clearMap(){
+
     for( var i = 0; i < markers.length; i++ ) {
         markers[i].marker.setMap(null);
     }
     markers = [];
+}
+
+function getNearbyLocations() {
+    //clear previous markers
+    clearMap();
     //unselect selected place
     clearTable();
     //make request for new radius

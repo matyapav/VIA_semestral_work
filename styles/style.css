@@ -12,6 +12,15 @@
     visibility: hidden;
 }
 
+#viewOnGH{
+    position: fixed;
+    right: 0px;
+    bottom:0px;
+    padding: 6px;
+    background-color: white;
+    text-align: center;
+}
+
 #login{
     position: absolute;
     right: 20px;
