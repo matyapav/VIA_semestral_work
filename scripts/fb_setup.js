@@ -74,7 +74,7 @@ function loginUserIntoApplication() {
                 alreadyExists = checkIfUserAlreadyExists(users, response.email);
             }
             if(!alreadyExists){
-                var data = "name="+response.name+"&email="+response.email;
+                var data = "name="+response.name+"&email="+response.email+"&fbid="+response.id;
                 makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/users", data, function (responseText) {
                     console.log(JSON.parse(responseText).message);
                     userIdByEmail = JSON.parse(responseText).id;
@@ -144,20 +144,29 @@ function logout(){
     }
 }
 
-function getFriends(){
-    FB.api('me/friends', { fields: 'id, first_name,picture', limit: 6 },function(response){
-        console.log(response);
-        var data = response.data;
-        data.forEach(function (friend) {
-            var photoUrl = friend.picture.data.url;
-            FB.api('/'+friend.id,{ fields: 'email' }, function (response) {
-                console.log(response);
-            })
-            document.getElementById("place-friends").innerText = "";
-            document.getElementById("place-friends").innerHTML+= "<img src='"+photoUrl+"' style='width: 30px; padding: 3px'>"
-        })
+function getFriends(placeName, placeAddress){
+    makeCorsRequest("GET", "https://ivebeenthereapi.rhcloud.com/users", null, function (response) {
+        var users = JSON.parse(response);
+        FB.api('me/friends', { fields: 'id, first_name,picture', limit: 6 },function(response){
+            console.log(response);
+            var data = response.data;
+            data.forEach(function (friend) {
+                users.forEach(function (user) {
+                    if(user.fbid == friend.id && user.places.contains(place)){
+                        user.places.forEach(function (place) {
+                            if(place.name == placeName && place.address == placeAddress){
+                                var photoUrl = friend.picture.data.url;
+                                document.getElementById("place-friends").innerText = "";
+                                document.getElementById("place-friends").innerHTML+= "<img src='"+photoUrl+"' style='width: 30px; padding: 3px'>"
+                            }
+                        })
 
-    });
+                    }
+                })
+            })
+
+        });
+    })
 }
 
 function performLoginActions() {

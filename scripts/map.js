@@ -156,7 +156,7 @@ function showInfoAboutPlace(place,marker, alreadyVisited){
     console.log(place);
     setPlaceTable(place)
     somePlaceIsSelected = true;
-    getFriends();
+    getFriends(place.name, place.vicinity);
     //clone element in order to remove all action listeners on it
     var old_element = document.getElementById("iwasthere");
     var new_element = old_element.cloneNode(true);
