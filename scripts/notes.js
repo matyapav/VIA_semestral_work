@@ -13,7 +13,7 @@ function prepareNoteForm(place_name) {
                     "<input id='note_name' type='text'><br>" +
                     "<label for='note_content'>Obsah</label>" +
                     "<input id='note_content' type='text'><br>" +
-                    "<button id='add-note-submit-btn'>Přidat</button>" +
+                    "<button id='add-note-submit-btn'>Přidat</button>";
                 document.getElementById("add-note-submit-btn").addEventListener("click", function () {
                     var noteObj = {name: document.getElementById("note_name").innerText, content: document.getElementById("note_content").innerText}
                     console.log(noteObj)
