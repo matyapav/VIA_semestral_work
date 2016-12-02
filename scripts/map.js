@@ -133,6 +133,7 @@ function createMarkerOnMap(position, title, pinColor) {
 
 function setPlaceTable(place) {
     //show information in table
+    clearTable();
     document.getElementById('place-name').innerText = place.name;
     document.getElementById('place-address').innerText = place.vicinity;
     if(place.opening_hours != null){
@@ -156,7 +157,7 @@ function showInfoAboutPlace(place,marker, alreadyVisited){
     console.log(place);
     setPlaceTable(place)
     somePlaceIsSelected = true;
-    getFriends(place.name, place.vicinity);
+    getFriendsWhichVisitedPlace(place.name, place.vicinity);
     //clone element in order to remove all action listeners on it
     var old_element = document.getElementById("iwasthere");
     var new_element = old_element.cloneNode(true);
