@@ -23,7 +23,7 @@ function prepareNoteForm(place_name) {
     });
 }
 function addNoteToPlace(place_id, note) {
-    var data = "&name="+note.name+"&content="+note.content;
+    var data = "name="+note.name+"&content="+note.content;
     var user_id = localStorage.getItem("id");
     var url = "https://ivebeenthereapi-matyapav.rhcloud.com/notesForPlace/"+place_id+"/user/"+user_id;
     makeCorsRequest("POST", url, data, function (response) {
