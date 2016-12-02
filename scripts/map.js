@@ -23,7 +23,7 @@ function initMap() {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-            createMarkerOnMap(actualPosition, "Vaše poloha", "FFFFFF")
+            createMarkerOnMap(actualPosition, "Vaše poloha", "FFFFFF");
 
             map.setCenter(actualPosition);
             console.log("map initialized");
@@ -142,6 +142,7 @@ function setPlaceTable(place) {
         document.getElementById('place-open').innerText = "-";
     }
     document.getElementById('actions').style = "visibility: visible";
+    prepareNoteForm(place.name);
 }
 
 function findPlaceId(place, places){
@@ -155,7 +156,7 @@ function findPlaceId(place, places){
 
 function showInfoAboutPlace(place,marker, alreadyVisited){
     console.log(place);
-    setPlaceTable(place)
+    setPlaceTable(place);
     somePlaceIsSelected = true;
     getFriendsWhichVisitedPlace(place.name, place.vicinity);
     //clone element in order to remove all action listeners on it
