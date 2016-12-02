@@ -6,17 +6,16 @@ function prepareNoteForm(place_name) {
     checkIfPlaceAlreadyExistsInDb(place_name, function (place_id) {
         if(place_id != null && place_id != undefined){
             document.getElementById('addNote').addEventListener("click", function () {
-                initModal();
-                var modalInfo = document.getElementById("modal-info");
-                modalInfo.innerHTML =
+                var addNoteDiv = document.getElementById("addNoteDiv");
+                addNoteDiv.innerHTML =
                     "<label for='note_name'>Název</label>" +
                     "<input id='note_name' type='text'><br>" +
                     "<label for='note_content'>Obsah</label>" +
                     "<input id='note_content' type='text'><br>" +
-                    "<button id='add-note-submit-btn'>Přidat</button>";
+                    "<button id='add-note-submit-btn' onclick=''>Přidat</button>";
                 document.getElementById("add-note-submit-btn").addEventListener("click", function () {
                     var noteObj = {name: document.getElementById("note_name").innerText, content: document.getElementById("note_content").innerText}
-                    console.log(noteObj)
+                    console.log(noteObj);
                     addNoteToPlace(place_id, noteObj);
                 })
             })
