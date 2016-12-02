@@ -25,7 +25,7 @@ function prepareNoteForm(place_name) {
 function addNoteToPlace(place_id, note) {
     var data = "&name="+note.name+"&content="+note.content;
     var user_id = localStorage.getItem("id");
-    var url = "https://ivebeenthereapi-matyapav.rhcloud.com/notes/place/"+place_id+"/user"+user_id;
+    var url = "https://ivebeenthereapi-matyapav.rhcloud.com/notes/place/"+place_id+"/user/"+user_id;
     makeCorsRequest("POST", url, data, function (response) {
         console.log(response);
     })
@@ -33,7 +33,7 @@ function addNoteToPlace(place_id, note) {
 
 function removeNote(note_id) {
     var user_id = localStorage.getItem("id");
-    var url = "https://ivebeenthereapi-matyapav.rhcloud.com/notes/"+note_id+"/user"+user_id;
+    var url = "https://ivebeenthereapi-matyapav.rhcloud.com/notes/"+note_id+"/user/"+user_id;
     makeCorsRequest("DELETE", url, null, function (response) {
         console.log(response);
     })
@@ -41,7 +41,7 @@ function removeNote(note_id) {
 
 function getNotesForPlace(place_id) {
     var user_id = localStorage.getItem("id");
-    var url = "https://ivebeenthereapi-matyapav.rhcloud.com/notes/place/"+place_id+"/user"+user_id;
+    var url = "https://ivebeenthereapi-matyapav.rhcloud.com/notes/place/"+place_id+"/user/"+user_id;
     makeCorsRequest("GET", url, null, function (response) {
         console.log(response);
         //TODO show notes
