@@ -191,10 +191,10 @@ function connectPlaceAndUser(place, userId) {
 function disconnectPlaceAndUser(place, userId){
     makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/userPlaces/"+userId, null, function (responseText) {
         if(responseText){
-            console.log(JSON.parse(responseText));
             var places = JSON.parse(responseText);
+            console.log(places);
+            console.log(place);
             var placeId = findPlaceId(place, places);
-            alert(placeId);
             if(placeId != null){
                 makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/disconnectPlaceAndUser/"+placeId+"/user/"+userId, null, function (responseText) {
                     if(responseText){
