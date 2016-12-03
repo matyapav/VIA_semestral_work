@@ -180,7 +180,6 @@ function showInfoAboutPlace(place,marker, alreadyVisited){
         document.getElementById('addNote').style = "display: block";
         document.getElementById('myNotes').style = "display: block; text-align: center";
         prepareNoteFormAndFillNotes(place.name);
-
     }
 }
 
@@ -195,6 +194,7 @@ function disconnectPlaceAndUser(place, userId){
             console.log(JSON.parse(responseText));
             var places = JSON.parse(responseText);
             var placeId = findPlaceId(place, places);
+            alert(placeId);
             if(placeId != null){
                 makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/disconnectPlaceAndUser/"+placeId+"/user/"+userId, null, function (responseText) {
                     if(responseText){
