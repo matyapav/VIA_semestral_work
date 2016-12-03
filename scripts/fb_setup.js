@@ -79,18 +79,19 @@ function loginUserIntoApplication() {
                     console.log(JSON.parse(responseText).message);
                     userIdByEmail = JSON.parse(responseText).id;
                     saveUserIdInLocalStorage(userIdByEmail);
+                    console.log(localStorage.getItem("id"));
                     performLoginActions();
+                    document.getElementById('status').innerHTML =
+                        'Přihlášen jako, <a id="myBtn" onclick="showUserInfo()"> ' + response.name + '</a>!';
                 });
             }else{
                 userIdByEmail = users[id]._id;
                 saveUserIdInLocalStorage(userIdByEmail);
+                console.log(localStorage.getItem("id"));
+                performLoginActions();
+                document.getElementById('status').innerHTML =
+                    'Přihlášen jako, <a id="myBtn" onclick="showUserInfo()"> ' + response.name + '</a>!';
             }
-
-            console.log(localStorage.getItem("id"));
-            performLoginActions();
-            document.getElementById('status').innerHTML =
-                'Přihlášen jako, <a id="myBtn" onclick="showUserInfo()"> ' + response.name + '</a>!';
-
         });
 
     });
