@@ -13,8 +13,8 @@ function prepareNoteFormAndFillNotes(place_name) {
                     "<label for='note_name'>Název</label>" +
                     "<input id='note_name' type='text' class='form-control'><br>" +
                     "<label for='note_content'>Obsah</label>" +
-                    "<textarea  rows='5' id='note_content' class='form-control'><br>" +
-                    "<button id='add-note-submit-btn'>Přidat</button>";
+                    "<textarea id='note_content' class='form-control' rows='5'></textarea><br>" +
+                    "<button class='btn btn-primary' id='add-note-submit-btn'>Přidat</button>";
                 document.getElementById("add-note-submit-btn").addEventListener("click", function () {
                     var noteObj = {name: document.getElementById("note_name").value, content: document.getElementById("note_content").value}
                     console.log(noteObj);
@@ -57,7 +57,7 @@ function getAndShowNotesForPlace(place_id) {
         console.log(response);
         var notes = JSON.parse(response);
         var notesElement = document.getElementById('myNotes');
-        notesElement.innerHTML = "";
+        notesElement.innerHTML = "<h3>Moje poznámky</h3>";
         var index = 0;
         notes.forEach(function (note) {
             notesElement.innerHTML+="<b>"+note.name+"</b> "+note.content+" <a id='deleteNote"+index+"' style='cursor: pointer'>x</a> <br>"
