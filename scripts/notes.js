@@ -36,7 +36,7 @@ function addNoteToPlace(place_id, note) {
     })
 }
 
-function removeNote(note_id) {
+function removeNote(note_id, place_id) {
     var user_id = localStorage.getItem("id");
     var url = "https://ivebeenthereapi-matyapav.rhcloud.com/notes/"+note_id+"/user/"+user_id;
     makeCorsRequest("DELETE", url, null, function (response) {
@@ -57,7 +57,7 @@ function getAndShowNotesForPlace(place_id) {
         notes.forEach(function (note) {
             notesElement.innerHTML+="<b>"+note.name+"</b> "+note.content+" <a id='deleteNote"+index+"' style='cursor: pointer'>x</a> <br>"
             document.getElementById("deleteNote"+index).addEventListener("click", function () {
-                removeNote(note._id);
+                removeNote(note._id, place_id);
             });
             index++;
         })
