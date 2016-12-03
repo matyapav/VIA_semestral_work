@@ -148,6 +148,7 @@ function setPlaceTable(place) {
 function findPlaceId(place, places){
     places.forEach(function (p) {
         if(p.name == place.name){
+            alert("jop")
             return p._id;
         }
     });
