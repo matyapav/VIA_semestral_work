@@ -68,10 +68,12 @@ function getAndShowNotesForPlace(place_id) {
             "<th>Akce</th>" +
             "</tr>" +
             "</thead>" +
-            "<tbody>";
+            "<tbody id='myNotesTableBody'>"+
+            "</tbody></table>";
         var index = 0;
+        var tableBody = document.getElementById('myNotesTableBody');
         notes.forEach(function (note) {
-            notesElement.innerHTML +=
+            tableBody.innerHTML +=
                 "<tr>"
                 "<td>"+note.name+"</td>" +
                 "<td>"+note.content+"</td>"+
@@ -82,7 +84,5 @@ function getAndShowNotesForPlace(place_id) {
             });
             index++;
         })
-        notesElement.innerHTML+=
-            "</tbody></table>"
     })
 }
