@@ -145,16 +145,6 @@ function setPlaceTable(place) {
 
 }
 
-function findPlaceId(place, places){
-    places.forEach(function (p) {
-        if(p.name == place.name){
-            alert("jop")
-            return p._id;
-        }
-    });
-    return null;
-}
-
 function showInfoAboutPlace(place,marker, alreadyVisited){
     console.log(place);
     setPlaceTable(place);
@@ -195,7 +185,12 @@ function disconnectPlaceAndUser(place, userId){
             var places = JSON.parse(responseText);
             console.log(places);
             console.log(place);
-            var placeId = findPlaceId(place, places);
+            var placeId = null;
+            places.forEach(function (p) {
+                if(p.name == place.name){
+                    placeId = p._id;
+                }
+            });
             if(placeId != null){
                 makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/disconnectPlaceAndUser/"+placeId+"/user/"+userId, null, function (responseText) {
                     if(responseText){
