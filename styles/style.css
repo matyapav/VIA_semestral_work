@@ -40,3 +40,7 @@
 #myBtn{
     cursor: pointer;
 }
+
+#myNotesTable{
+    text-align: left;
+}
