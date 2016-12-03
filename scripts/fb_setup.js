@@ -173,7 +173,7 @@ function performLoginActions() {
     document.getElementById('login_btn').style = "display: none";
     document.getElementById('logout_btn').style = "display: block";
     if(somePlaceIsSelected){
-        document.getElementById('actions').style = "visibility: visible";
+        document.getElementById('actions').style = "display: block";
     }
     document.getElementById('radius-input').addEventListener('change', getNearbyLocations);
     getNearbyLocations();
@@ -183,7 +183,7 @@ function performLogoutActions(){
     document.getElementById('status').innerHTML = 'Přihlašte se do této aplikace.';
     document.getElementById('login_btn').style = "display: block";
     document.getElementById('logout_btn').style = "display: none";
-    document.getElementById('actions').style = "visibility: hidden";
+    document.getElementById('actions').style = "display: none";
     //clear previous markers
     clearMap();
     //unselect selected place

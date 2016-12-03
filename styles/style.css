@@ -9,7 +9,7 @@
 }
 
 #actions, #addNote, #myNotes{
-    visibility: hidden;
+    display: none;
 }
 
 #viewOnGH{

@@ -141,7 +141,7 @@ function setPlaceTable(place) {
     }else{
         document.getElementById('place-open').innerText = "-";
     }
-    document.getElementById('actions').style = "visibility: visible";
+    document.getElementById('actions').style = "display: block";
 
 }
 
@@ -177,8 +177,8 @@ function showInfoAboutPlace(place,marker, alreadyVisited){
         document.getElementById('iwasthere').addEventListener('click', function () {
             disconnectPlaceAndUser(place, userId);
         });
-        document.getElementById('addNote').style = "visibility: visible";
-        document.getElementById('myNotes').style = "visibility: visible";
+        document.getElementById('addNote').style = "display: block";
+        document.getElementById('myNotes').style = "display: block";
         prepareNoteFormAndFillNotes(place.name);
 
     }
@@ -212,10 +212,12 @@ function clearTable() {
     document.getElementById('place-address').innerText = "-";
     document.getElementById('place-open').innerText = "-";
     document.getElementById('place-friends').innerText="-";
-    document.getElementById('actions').style = "visibility: hidden";
-    document.getElementById('addNote').style = "visibility: hidden";
+    document.getElementById('actions').style = "display: none";
+    document.getElementById('addNote').style = "display: none";
+    document.getElementById('addNoteDiv').style = "display: none";
+    document.getElementById('addNoteDiv').innerHTML = "";
     document.getElementById('myNotes').innerHTML = "";
-    document.getElementById('myNotes').style = "visibility: hidden";
+    document.getElementById('myNotes').style = "display: none";
     somePlaceIsSelected = false;
 }
 
