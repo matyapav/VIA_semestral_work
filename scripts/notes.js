@@ -8,17 +8,20 @@ function prepareNoteFormAndFillNotes(place_name) {
         if(place_id != null && place_id != undefined){
             document.getElementById('addNote').addEventListener("click", function () {
                 var addNoteDiv = document.getElementById("addNoteDiv");
-                addNoteDiv.style = "display: block";
+                addNoteDiv.style = "display: block; text-align: center;";
                 addNoteDiv.innerHTML =
                     "<label for='note_name'>Název</label>" +
-                    "<input id='note_name' type='text'><br>" +
+                    "<input id='note_name' type='text' class='form-control'><br>" +
                     "<label for='note_content'>Obsah</label>" +
-                    "<input id='note_content' type='text'><br>" +
+                    "<input id='note_content' type='text' class='form-control'><br>" +
                     "<button id='add-note-submit-btn'>Přidat</button>";
                 document.getElementById("add-note-submit-btn").addEventListener("click", function () {
                     var noteObj = {name: document.getElementById("note_name").value, content: document.getElementById("note_content").value}
                     console.log(noteObj);
                     addNoteToPlace(place_id, noteObj);
+                    //clear form
+                    document.getElementById("note_name").innerText = "";
+                    document.getElementById("note_content").innerText = "";
                 })
             })
             getAndShowNotesForPlace(place_id);
