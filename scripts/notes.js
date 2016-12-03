@@ -2,7 +2,7 @@
  * Created by Pavel on 02.12.2016.
  */
 
-function prepareNoteForm(place_name) {
+function prepareNoteFormAndFillNotes(place_name) {
     checkIfPlaceAlreadyExistsInDb(place_name, function (place_id) {
         if(place_id != null && place_id != undefined){
             document.getElementById('addNote').addEventListener("click", function () {
@@ -19,9 +19,11 @@ function prepareNoteForm(place_name) {
                     addNoteToPlace(place_id, noteObj);
                 })
             })
+            getAndShowNotesForPlace(place_id);
         }
     });
 }
+
 function addNoteToPlace(place_id, note) {
     var data = "name="+note.name+"&content="+note.content;
     var user_id = localStorage.getItem("id");
@@ -39,11 +41,17 @@ function removeNote(note_id) {
     })
 }
 
-function getNotesForPlace(place_id) {
+function getAndShowNotesForPlace(place_id) {
     var user_id = localStorage.getItem("id");
     var url = "https://ivebeenthereapi-matyapav.rhcloud.com/notesForPlace/"+place_id+"/user/"+user_id;
     makeCorsRequest("GET", url, null, function (response) {
         console.log(response);
+        var notes = JSON.parse(response);
+        var notesElement = document.getElementById('myNotes');
+        notes.forEach(function (note) {
+            notesElement.innerHTML+="<b>"+note.name+"</b> "+note.content+"<br>"
+        })
+
         //TODO show notes
     })
 }

@@ -142,7 +142,7 @@ function setPlaceTable(place) {
         document.getElementById('place-open').innerText = "-";
     }
     document.getElementById('actions').style = "visibility: visible";
-    prepareNoteForm(place.name);
+
 }
 
 function findPlaceId(place, places){
@@ -177,6 +177,9 @@ function showInfoAboutPlace(place,marker, alreadyVisited){
         document.getElementById('iwasthere').addEventListener('click', function () {
             disconnectPlaceAndUser(place, userId);
         });
+        document.getElementById('addNote').style = "visibility: visible";
+        document.getElementById('myNotes').style = "visibility: visible";
+        prepareNoteFormAndFillNotes(place.name);
 
     }
 }
@@ -210,9 +213,10 @@ function clearTable() {
     document.getElementById('place-open').innerText = "-";
     document.getElementById('place-friends').innerText="-";
     document.getElementById('actions').style = "visibility: hidden";
-
+    document.getElementById('addNote').style = "visibility: hidden";
+    document.getElementById('myNotes').innerHTML = "";
+    document.getElementById('myNotes').style = "visibility: hidden";
     somePlaceIsSelected = false;
-
 }
 
 function setMarkerColor(marker, color) {
