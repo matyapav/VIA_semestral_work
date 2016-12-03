@@ -79,6 +79,7 @@ function loginUserIntoApplication() {
                     console.log(JSON.parse(responseText).message);
                     userIdByEmail = JSON.parse(responseText).id;
                     saveUserIdInLocalStorage(userIdByEmail);
+                    performLoginActions();
                 });
             }else{
                 userIdByEmail = users[id]._id;
