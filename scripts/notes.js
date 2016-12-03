@@ -81,7 +81,7 @@ function getAndShowNotesForPlace(place_id) {
             var contentCell  = newRow.insertCell(1);
             var contentText  = document.createTextNode(note.content);
             var actionsCell  = newRow.insertCell(2);
-            var actionsText  = document.createTextNode("<a id='deleteNote"+index+"' style='cursor: pointer'><span class='glyphicon glyphicon-remove'></span></a>");
+            var actionsText  = document.createElement("<a id='deleteNote"+index+"' style='cursor: pointer'><span class='glyphicon glyphicon-remove'></span></a>");
             nameCell.appendChild(nameText);
             contentCell.appendChild(contentText);
             actionsCell.appendChild(actionsText);
