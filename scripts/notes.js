@@ -13,7 +13,7 @@ function prepareNoteFormAndFillNotes(place_name) {
                     "<label for='note_name'>Název</label>" +
                     "<input id='note_name' type='text' class='form-control'><br>" +
                     "<label for='note_content'>Obsah</label>" +
-                    "<input id='note_content' type='text' class='form-control'><br>" +
+                    "<textarea  rows='5' id='note_content' class='form-control'><br>" +
                     "<button id='add-note-submit-btn'>Přidat</button>";
                 document.getElementById("add-note-submit-btn").addEventListener("click", function () {
                     var noteObj = {name: document.getElementById("note_name").value, content: document.getElementById("note_content").value}
