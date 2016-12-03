@@ -60,7 +60,7 @@ function getAndShowNotesForPlace(place_id) {
         var notesElement = document.getElementById('myNotes');
         notesElement.innerHTML =
             "<h3>Moje poznámky</h3>"+
-            "<table class='table table-striped'>"+
+            "<table id='myNotesTable' class='table table-striped'>"+
             "<thead>" +
             "<tr>" +
             "<th>Název</th>" +
@@ -68,17 +68,23 @@ function getAndShowNotesForPlace(place_id) {
             "<th>Akce</th>" +
             "</tr>" +
             "</thead>" +
-            "<tbody id='myNotesTableBody'>"+
+            "<tbody>"+
             "</tbody></table>";
         var index = 0;
-        var tableBody = document.getElementById('myNotesTableBody');
+
+        var tableRef = document.getElementById('myNotesTable').getElementsByTagName('tbody')[0];
         notes.forEach(function (note) {
-            tableBody.innerHTML +=
-                "<tr>"
-                "<td>"+note.name+"</td>" +
-                "<td>"+note.content+"</td>"+
-                "<td><a id='deleteNote"+index+"' style='cursor: pointer'><span class='glyphicon glyphicon-remove'></span></a></td>"+
-                "</tr>"
+            // Insert a row in the table at row index 0
+            var newRow   = tableRef.insertRow(tableRef.rows.length);
+            var nameCell  = newRow.insertCell(0);
+            var nameText  = document.createTextNode(note.name);
+            var contentCell  = newRow.insertCell(1);
+            var contentText  = document.createTextNode(note.content);
+            var actionsCell  = newRow.insertCell(2);
+            var actionsText  = document.createTextNode("<a id='deleteNote"+index+"' style='cursor: pointer'><span class='glyphicon glyphicon-remove'></span></a>");
+            nameCell.appendChild(nameText);
+            contentCell.appendChild(contentText);
+            actionsCell.appendChild(actionsText);
             document.getElementById("deleteNote"+index).addEventListener("click", function () {
                 removeNote(note._id, place_id);
             });
