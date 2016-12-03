@@ -10,6 +10,7 @@ function prepareNoteFormAndFillNotes(place_name) {
                 var addNoteDiv = document.getElementById("addNoteDiv");
                 addNoteDiv.style = "display: block; text-align: center;";
                 addNoteDiv.innerHTML =
+                    "<h3>Nová poznámka</h3>"+
                     "<label for='note_name'>Název</label>" +
                     "<input id='note_name' type='text' class='form-control'><br>" +
                     "<label for='note_content'>Obsah</label>" +
