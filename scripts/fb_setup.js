@@ -148,6 +148,7 @@ function logout(){
 
 function getFriendsWhichVisitedPlace(placeName, placeAddress){
     makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/users", null, function (response) {
+        document.getElementById("place-friends").innerText = "";
         var users = JSON.parse(response);
         FB.api('me/friends', { fields: 'id, first_name,picture', limit: 6 },function(response){
             console.log(response);
@@ -158,7 +159,6 @@ function getFriendsWhichVisitedPlace(placeName, placeAddress){
                         user.places.forEach(function (place) {
                             if(place.name == placeName && place.address == placeAddress){
                                 var photoUrl = friend.picture.data.url;
-                                document.getElementById("place-friends").innerText = "";
                                 document.getElementById("place-friends").innerHTML+= "<img src='"+photoUrl+"' style='width: 30px; padding: 3px' title='"+user.name+"'>"
                             }
                         })
