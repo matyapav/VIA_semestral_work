@@ -25,11 +25,16 @@
     position: absolute;
     right: 20px;
     top: 10px;
+    color: white;
 }
 #radius{
     position: absolute;
     left: 20px;
     top: 20px;
+}
+
+#radius span{
+    color: white;
 }
 
 #radius-input{
@@ -43,4 +48,14 @@
 
 #myNotesTable{
     text-align: left;
+}
+
+#top{
+    background-color: black;
+    padding: 1px;
+}
+
+#header{
+    text-align: center;
+    margin: 5px;
 }
