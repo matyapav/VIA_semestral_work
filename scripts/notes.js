@@ -37,12 +37,14 @@ function addNoteToPlace(place_id, note) {
 }
 
 function removeNote(note_id, place_id) {
-    var user_id = localStorage.getItem("id");
-    var url = "https://ivebeenthereapi-matyapav.rhcloud.com/notes/"+note_id+"/user/"+user_id;
-    makeCorsRequest("DELETE", url, null, function (response) {
-        console.log(response);
-        getAndShowNotesForPlace(place_id);//refresh notes
-    })
+    if(confirm("Do you really want to delete this note?")) {
+        var user_id = localStorage.getItem("id");
+        var url = "https://ivebeenthereapi-matyapav.rhcloud.com/notes/" + note_id + "/user/" + user_id;
+        makeCorsRequest("DELETE", url, null, function (response) {
+            console.log(response);
+            getAndShowNotesForPlace(place_id);//refresh notes
+        })
+    }
 }
 
 function getAndShowNotesForPlace(place_id) {
