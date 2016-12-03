@@ -71,10 +71,12 @@ function getAndShowNotesForPlace(place_id) {
             "<tbody>";
         var index = 0;
         notes.forEach(function (note) {
-            notesElement.innerHTML+=
+            notesElement.innerHTML +=
+                "<tr>"
                 "<td>"+note.name+"</td>" +
                 "<td>"+note.content+"</td>"+
-                "<td><a id='deleteNote"+index+"' style='cursor: pointer'><span class='glyphicon glyphicon-remove'></span></a></td>"
+                "<td><a id='deleteNote"+index+"' style='cursor: pointer'><span class='glyphicon glyphicon-remove'></span></a></td>"+
+                "</tr>"
             document.getElementById("deleteNote"+index).addEventListener("click", function () {
                 removeNote(note._id, place_id);
             });
