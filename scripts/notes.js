@@ -32,6 +32,7 @@ function addNoteToPlace(place_id, note) {
     var url = "https://ivebeenthereapi-matyapav.rhcloud.com/notesForPlace/"+place_id+"/user/"+user_id;
     makeCorsRequest("POST", url, data, function (response) {
         console.log(response);
+        getAndShowNotesForPlace(place_id);//refresh notes
     })
 }
 
