@@ -84,7 +84,7 @@ function getAndShowNotesForPlace(place_id) {
             var deleteLink = document.createElement('a');
             deleteLink.setAttribute("id", "deleteNote"+index);
             deleteLink.setAttribute("style", "cursor: pointer");
-            var actionsText  = "Smazat"
+            var actionsText  = document.createTextNode("Smazat");
             nameCell.appendChild(nameText);
             contentCell.appendChild(contentText);
             deleteLink.appendChild(actionsText);
