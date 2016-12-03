@@ -82,7 +82,7 @@ function loginUserIntoApplication() {
                     console.log(localStorage.getItem("id"));
                     performLoginActions();
                     document.getElementById('status').innerHTML =
-                        'Přihlášen jako, <a id="myBtn" onclick="showUserInfo()"> ' + response.name + '</a>!';
+                        'Logged as <a id="myBtn" onclick="showUserInfo()"> ' + response.name + '</a>!';
                 });
             }else{
                 userIdByEmail = users[id]._id;
@@ -90,7 +90,7 @@ function loginUserIntoApplication() {
                 console.log(localStorage.getItem("id"));
                 performLoginActions();
                 document.getElementById('status').innerHTML =
-                    'Přihlášen jako, <a id="myBtn" onclick="showUserInfo()"> ' + response.name + '</a>!';
+                    'Logged as <a id="myBtn" onclick="showUserInfo()"> ' + response.name + '</a>!';
             }
         });
 
@@ -182,7 +182,7 @@ function performLoginActions() {
 }
 
 function performLogoutActions(){
-    document.getElementById('status').innerHTML = 'Přihlašte se do této aplikace.';
+    document.getElementById('status').innerHTML = 'Login yourself into application';
     document.getElementById('login_btn').style = "display: block";
     document.getElementById('logout_btn').style = "display: none";
     document.getElementById('actions').style = "display: none";

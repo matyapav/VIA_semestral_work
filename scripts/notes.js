@@ -59,13 +59,13 @@ function getAndShowNotesForPlace(place_id) {
         var notes = JSON.parse(response);
         var notesElement = document.getElementById('myNotes');
         notesElement.innerHTML =
-            "<h3>Moje poznámky</h3>"+
+            "<h3>My notes for this place</h3>"+
             "<table id='myNotesTable' class='table table-striped'>"+
             "<thead>" +
             "<tr>" +
-            "<th>Název</th>" +
-            "<th>Obsah</th>" +
-            "<th>Akce</th>" +
+            "<th>Note name</th>" +
+            "<th>Content</th>" +
+            "<th>Actions</th>" +
             "</tr>" +
             "</thead>" +
             "<tbody>"+
@@ -84,7 +84,7 @@ function getAndShowNotesForPlace(place_id) {
             var deleteLink = document.createElement('a');
             deleteLink.setAttribute("id", "deleteNote"+index);
             deleteLink.setAttribute("style", "cursor: pointer");
-            var actionsText  = document.createTextNode("Smazat");
+            var actionsText  = document.createTextNode("Delete");
             nameCell.appendChild(nameText);
             contentCell.appendChild(contentText);
             deleteLink.appendChild(actionsText);

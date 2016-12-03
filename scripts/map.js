@@ -158,13 +158,13 @@ function showInfoAboutPlace(place,marker, alreadyVisited){
     var userId = localStorage.getItem("id");
 
     if(!alreadyVisited) {
-        document.getElementById('iwasthere').innerHTML = "Byl jsem tu.";
+        document.getElementById('iwasthere').innerHTML = "I've been there";
         document.getElementById('iwasthere').addEventListener('click', function () {
             connectPlaceAndUser(place, userId);
         })
 
     }else{
-        document.getElementById('iwasthere').innerHTML = "Nebyl jsem tady.";
+        document.getElementById('iwasthere').innerHTML = "I haven't been there";
         document.getElementById('iwasthere').addEventListener('click', function () {
             disconnectPlaceAndUser(place, userId);
         });
