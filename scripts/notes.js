@@ -3,8 +3,7 @@
  */
 
 function prepareNoteFormAndFillNotes(place_name) {
-    //TODO zmenit na podminku jestli ma ten user place u sebe nebo ne .. takhle to bere i mista co pridali ostatni
-    checkIfPlaceAlreadyExistsInDb(place_name, function (place_id) {
+    checkIfPlaceIsInUserPlaces(place_name, function (place_id) {
         if(place_id != null && place_id != undefined){
             document.getElementById('addNote').addEventListener("click", function () {
                 var addNoteDiv = document.getElementById("addNoteDiv");
@@ -21,8 +20,8 @@ function prepareNoteFormAndFillNotes(place_name) {
                     console.log(noteObj);
                     addNoteToPlace(place_id, noteObj);
                     //clear form
-                    document.getElementById("note_name").innerText = "";
-                    document.getElementById("note_content").innerText = "";
+                    document.getElementById("note_name").value = "";
+                    document.getElementById("note_content").value = "";
                 })
                 document.getElementById("note_name").focus();
             })

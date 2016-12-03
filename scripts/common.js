@@ -85,6 +85,24 @@ function checkIfPlaceAlreadyExistsInDb(placeName, callback) {
     });
 }
 
+function checkIfPlaceIsInUserPlaces(placeName, callback){
+    var user_id  = localStorage.getItem("id");
+    makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/userPlaces/"+user_id, null, function (responseText) {
+        var placeId = null;
+        if(responseText){
+            var places = JSON.parse(responseText);
+            for (id in places){
+                if(places[id] != null && places[id] != undefined) {
+                    if (encodeURIComponent(places[id].name) == encodeURIComponent(placeName)) {
+                        placeId = places[id]._id;
+                    }
+                }
+            }
+        }
+        callback(placeId)
+    });
+}
+
 function insertPlaceIntoDB(place, callback) {
     var data = "name="+encodeURIComponent(place.name)+"&address="+encodeURIComponent(place.address);
     makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/places", data, function (responseText) {
