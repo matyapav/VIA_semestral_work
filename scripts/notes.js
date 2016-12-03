@@ -58,14 +58,29 @@ function getAndShowNotesForPlace(place_id) {
         console.log(response);
         var notes = JSON.parse(response);
         var notesElement = document.getElementById('myNotes');
-        notesElement.innerHTML = "<h3>Moje poznámky</h3>";
+        notesElement.innerHTML =
+            "<h3>Moje poznámky</h3>"+
+            "<table class='table table-striped'>"+
+            "<thead>" +
+            "<tr>" +
+            "<th>Název</th>" +
+            "<th>Obsah</th>" +
+            "<th>Akce</th>" +
+            "</tr>" +
+            "</thead>" +
+            "<tbody>";
         var index = 0;
         notes.forEach(function (note) {
-            notesElement.innerHTML+="<b>"+note.name+"</b> "+note.content+" <a id='deleteNote"+index+"' style='cursor: pointer'>x</a> <br>"
+            notesElement.innerHTML+=
+                "<td>"+note.name+"</td>" +
+                "<td>"+note.content+"</td>"+
+                "<td><a id='deleteNote"+index+"' style='cursor: pointer'><span class='glyphicon glyphicon-remove'></span></a></td>"
             document.getElementById("deleteNote"+index).addEventListener("click", function () {
                 removeNote(note._id, place_id);
             });
             index++;
         })
+        notesElement.innerHTML+=
+            "</tbody></table>"
     })
 }
