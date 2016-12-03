@@ -41,6 +41,7 @@ function removeNote(note_id) {
     var url = "https://ivebeenthereapi-matyapav.rhcloud.com/notes/"+note_id+"/user/"+user_id;
     makeCorsRequest("DELETE", url, null, function (response) {
         console.log(response);
+        getAndShowNotesForPlace(place_id);//refresh notes
     })
 }
 
@@ -51,8 +52,9 @@ function getAndShowNotesForPlace(place_id) {
         console.log(response);
         var notes = JSON.parse(response);
         var notesElement = document.getElementById('myNotes');
+        notesElement.innerHTML = "";
         notes.forEach(function (note) {
-            notesElement.innerHTML+="<b>"+note.name+"</b> "+note.content+"<br>"
+            notesElement.innerHTML+="<b>"+note.name+"</b> "+note.content+" <a onclick='removeNote("+note._id+")'>x</a> <br>"
         })
 
         //TODO show notes
