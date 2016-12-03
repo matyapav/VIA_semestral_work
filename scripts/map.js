@@ -178,7 +178,7 @@ function showInfoAboutPlace(place,marker, alreadyVisited){
             disconnectPlaceAndUser(place, userId);
         });
         document.getElementById('addNote').style = "display: block";
-        document.getElementById('myNotes').style = "display: block";
+        document.getElementById('myNotes').style = "display: block; text-align: center";
         prepareNoteFormAndFillNotes(place.name);
 
     }

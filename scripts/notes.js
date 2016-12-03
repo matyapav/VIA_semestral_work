@@ -24,6 +24,7 @@ function prepareNoteFormAndFillNotes(place_name) {
                     document.getElementById("note_name").innerText = "";
                     document.getElementById("note_content").innerText = "";
                 })
+                document.getElementById("note_name").focus();
             })
             getAndShowNotesForPlace(place_id);
         }
