@@ -53,10 +53,13 @@ function getAndShowNotesForPlace(place_id) {
         var notes = JSON.parse(response);
         var notesElement = document.getElementById('myNotes');
         notesElement.innerHTML = "";
+        var index = 0;
         notes.forEach(function (note) {
-            notesElement.innerHTML+="<b>"+note.name+"</b> "+note.content+" <a onclick='removeNote("+note._id+")'>x</a> <br>"
+            notesElement.innerHTML+="<b>"+note.name+"</b> "+note.content+" <a id='deleteNote"+index+"'>x</a> <br>"
+            document.getElementById("deleteNote"+index).addEventListener("click", function () {
+                removeNote(note._id);
+            });
+            index++;
         })
-
-        //TODO show notes
     })
 }
