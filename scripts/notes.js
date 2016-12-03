@@ -81,10 +81,14 @@ function getAndShowNotesForPlace(place_id) {
             var contentCell  = newRow.insertCell(1);
             var contentText  = document.createTextNode(note.content);
             var actionsCell  = newRow.insertCell(2);
-            var actionsText  = document.createElement("<a id='deleteNote"+index+"' style='cursor: pointer'><span class='glyphicon glyphicon-remove'></span></a>");
+            var deleteLink = document.createElement('a');
+            deleteLink.setAttribute("id", "deleteNote"+index);
+            deleteLink.setAttribute("style", "cursor: pointer");
+            var actionsText  = "Smazat"
             nameCell.appendChild(nameText);
             contentCell.appendChild(contentText);
-            actionsCell.appendChild(actionsText);
+            deleteLink.appendChild(actionsText);
+            actionsCell.appendChild(deleteLink);
             document.getElementById("deleteNote"+index).addEventListener("click", function () {
                 removeNote(note._id, place_id);
             });
