@@ -8,6 +8,7 @@ function prepareNoteFormAndFillNotes(place_name) {
         if(place_id != null && place_id != undefined){
             document.getElementById('addNote').addEventListener("click", function () {
                 var addNoteDiv = document.getElementById("addNoteDiv");
+                addNoteDiv.style = "display: block";
                 addNoteDiv.innerHTML =
                     "<label for='note_name'>Název</label>" +
                     "<input id='note_name' type='text'><br>" +

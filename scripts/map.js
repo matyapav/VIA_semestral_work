@@ -141,7 +141,7 @@ function setPlaceTable(place) {
     }else{
         document.getElementById('place-open').innerText = "-";
     }
-    document.getElementById('actions').style = "display: block";
+    document.getElementById('actions').style = "display: table-row";
 
 }
 
