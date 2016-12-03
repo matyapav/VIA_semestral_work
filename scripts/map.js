@@ -187,7 +187,7 @@ function disconnectPlaceAndUser(place, userId){
             console.log(place);
             var placeId = null;
             places.forEach(function (p) {
-                if(p.name == place.name){
+                if(p.name == place.name && p.address == place.vicinity){
                     placeId = p._id;
                 }
             });
