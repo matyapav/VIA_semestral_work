@@ -9,19 +9,25 @@ function prepareNoteFormAndFillNotes(place_name) {
                 var addNoteDiv = document.getElementById("addNoteDiv");
                 addNoteDiv.style = "display: block; text-align: center;";
                 addNoteDiv.innerHTML =
-                    "<h3>Nová poznámka</h3>"+
+                    "<h3>New note</h3>"+
                     "<label for='note_name'>Name</label>" +
-                    "<input id='note_name' type='text' class='form-control' required><br>" +
+                    "<input id='note_name' type='text' class='form-control'><br>" +
                     "<label for='note_content'>Content</label>" +
-                    "<textarea id='note_content' class='form-control' rows='5' required></textarea><br>" +
+                    "<textarea id='note_content' class='form-control' rows='5'></textarea><br>" +
                     "<button class='btn btn-primary' id='add-note-submit-btn'>Add note</button>";
                 document.getElementById("add-note-submit-btn").addEventListener("click", function () {
-                    var noteObj = {name: document.getElementById("note_name").value, content: document.getElementById("note_content").value}
-                    console.log(noteObj);
-                    addNoteToPlace(place_id, noteObj);
-                    //clear form
-                    document.getElementById("note_name").value = "";
-                    document.getElementById("note_content").value = "";
+                    var noteName = document.getElementById("note_name").value;
+                    var noteContent = document.getElementById("note_content").value;
+                    if(noteName == "" || noteContent == ""){
+                        alert("Note name and note content cannot be empty, please fill in some data.");
+                    }else{
+                        var noteObj = {name: document.getElementById("note_name").value, content: document.getElementById("note_content").value}
+                        console.log(noteObj);
+                        addNoteToPlace(place_id, noteObj);
+                        //clear form
+                        document.getElementById("note_name").value = "";
+                        document.getElementById("note_content").value = "";
+                    }
                 })
                 document.getElementById("note_name").focus();
             })
