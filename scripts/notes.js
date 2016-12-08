@@ -10,11 +10,11 @@ function prepareNoteFormAndFillNotes(place_name) {
                 addNoteDiv.style = "display: block; text-align: center;";
                 addNoteDiv.innerHTML =
                     "<h3>Nová poznámka</h3>"+
-                    "<label for='note_name'>Název</label>" +
-                    "<input id='note_name' type='text' class='form-control'><br>" +
-                    "<label for='note_content'>Obsah</label>" +
-                    "<textarea id='note_content' class='form-control' rows='5'></textarea><br>" +
-                    "<button class='btn btn-primary' id='add-note-submit-btn'>Přidat</button>";
+                    "<label for='note_name'>Name</label>" +
+                    "<input id='note_name' type='text' class='form-control' required><br>" +
+                    "<label for='note_content'>Content</label>" +
+                    "<textarea id='note_content' class='form-control' rows='5' required></textarea><br>" +
+                    "<button class='btn btn-primary' id='add-note-submit-btn'>Add note</button>";
                 document.getElementById("add-note-submit-btn").addEventListener("click", function () {
                     var noteObj = {name: document.getElementById("note_name").value, content: document.getElementById("note_content").value}
                     console.log(noteObj);

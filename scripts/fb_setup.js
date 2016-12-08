@@ -182,7 +182,7 @@ function performLoginActions() {
 }
 
 function performLogoutActions(){
-    document.getElementById('status').innerHTML = 'Login yourself into application';
+    document.getElementById('status').innerHTML = 'Log yourself into application';
     document.getElementById('login_btn').style = "display: block";
     document.getElementById('logout_btn').style = "display: none";
     document.getElementById('actions').style = "display: none";
