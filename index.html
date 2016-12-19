@@ -37,7 +37,12 @@
             <input id="location_type_5" class="radio_location_type" type="radio" name="location_type" value="university">
             <label for="location_type_5">Universities</label>
         </span>
-
+        <script>
+            var radios = document.getElementsByName("location_type");
+            Array.prototype.forEach.call(radios, function(radio) {
+                radio.addEventListener('change', getNearbyLocations);
+            });
+        </script>
     </div>
     <div id="login">
         <input type="button" id="login_btn" class="btn btn-primary" value="Login via Facebook" onclick="fblogin()">
