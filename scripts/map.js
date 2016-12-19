@@ -36,6 +36,14 @@ function initMap() {
         // Browser doesn't support Geolocation
         handleLocationError(false, infoWindow, map.getCenter());
     }
+    initializeTypesRadioButtons();
+}
+
+function initializeTypesRadioButtons() {
+    var radios = document.getElementsByName("location_type");
+    Array.prototype.forEach.call(radios, function(radio) {
+        radio.addEventListener('change', getNearbyLocations);
+    });
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
