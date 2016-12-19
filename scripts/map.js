@@ -23,7 +23,7 @@ function initMap() {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-            createMarkerOnMap(actualPosition, "Vaše poloha", "FFFFFF");
+            createMarkerOnMap(actualPosition, "You are here", "FFFFFF");
 
             map.setCenter(actualPosition);
             console.log("map initialized");
@@ -59,10 +59,18 @@ function getNearbyLocations() {
     //unselect selected place
     clearTable();
     //make request for new radius
+    var radios = document.getElementsByName('location_type');
+    var types = [];
+    for (var i = 0, length = radios.length; i < length; i++) {
+        if (radios[i].checked) {
+            types.push(radios[i].value);
+            break;
+        }
+    }
     var request = {
         location: actualPosition,
         radius: document.getElementById('radius-input').value,
-        types: ['restaurant'],
+        types: types
     };
     service = new google.maps.places.PlacesService(map);
     service.nearbySearch(request, markNearbyPlaces);

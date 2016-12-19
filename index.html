@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <title>API Mashup</title>
     <meta charset="UTF-8" />
@@ -25,10 +25,21 @@
         <span>Radius</span>
         <input id="radius-input" type="number" min="0", max="50000" placeholder="Nastavte radius" value="500"/>
         <br>
+        <span>
+            <input id="location_type_1" class="radio_location_type" type="radio" name="location_type" value="restaurant" checked>
+            <label for="location_type_1">Restaurants</label>
+            <input id="location_type_2" class="radio_location_type" type="radio" name="location_type" value="bar">
+            <label for="location_type_2">Bars</label>
+            <input id="location_type_3" class="radio_location_type" type="radio" name="location_type" value="night_club">
+            <label for="location_type_3">Night Clubs</label>
+            <input id="location_type_4" class="radio_location_type" type="radio" name="location_type" value="museum">
+            <label for="location_type_4">Museums</label>
+            <input id="location_type_5" class="radio_location_type" type="radio" name="location_type" value="university">
+            <label for="location_type_5">Universities</label>
+        </span>
 
     </div>
     <div id="login">
-
         <input type="button" id="login_btn" class="btn btn-primary" value="Login via Facebook" onclick="fblogin()">
         <input type="button" id="logout_btn" class="btn btn-danger" value="Logout" onclick="logout();">
         <div id="status"></div>
