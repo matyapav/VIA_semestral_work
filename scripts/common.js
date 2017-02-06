@@ -68,6 +68,8 @@ function markPlaceForUser(place, user_id, callback) {
     }
 }
 
+function connectPlaceToUser()
+
 function checkIfPlaceAlreadyExistsInDb(placeName, callback) {
     makeCorsRequest("GET", "https://ivebeenthereapi-matyapav.rhcloud.com/places", null, function (responseText) {
         var placeId = null;

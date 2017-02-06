@@ -74,28 +74,33 @@ function loginUserIntoApplication() {
                 alreadyExists = checkIfUserAlreadyExists(users, response.email);
             }
             if(!alreadyExists){
-                var data = "name="+response.name+"&email="+response.email+"&fbid="+response.id;
-                makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/users", data, function (responseText) {
-                    console.log(JSON.parse(responseText).message);
-                    userIdByEmail = JSON.parse(responseText).id;
-                    saveUserIdInLocalStorage(userIdByEmail);
-                    console.log(localStorage.getItem("id"));
-                    performLoginActions();
-                    document.getElementById('status').innerHTML =
-                        'Logged as <a id="myBtn" onclick="showUserInfo()"> ' + response.name + '</a>!';
-                });
+               registerAndLogUser(response);
             }else{
                 userIdByEmail = users[id]._id;
-                saveUserIdInLocalStorage(userIdByEmail);
-                console.log(localStorage.getItem("id"));
-                performLoginActions();
-                document.getElementById('status').innerHTML =
-                    'Logged as <a id="myBtn" onclick="showUserInfo()"> ' + response.name + '</a>!';
+				logUser(userIdByEmail);
             }
         });
 
     });
 }
+
+function registerAndLogUser(response){
+	var data = "name="+response.name+"&email="+response.email+"&fbid="+response.id;
+	makeCorsRequest("POST", "https://ivebeenthereapi-matyapav.rhcloud.com/users", data, function(responseText){;
+		console.log(JSON.parse(responseText).message);
+		userIdByEmail = JSON.parse(responseText).id;
+		logUser(userIdByEmail);
+	});
+}
+
+function logUser(userIdByEmail){
+		saveUserIdInLocalStorage(userIdByEmail);
+		console.log(localStorage.getItem("id"));
+		performLoginActions();
+		document.getElementById('status').innerHTML =
+			'Logged as <a id="myBtn" onclick="showUserInfo()"> ' + response.name + '</a>!';
+}
+	
 
 function checkIfUserAlreadyExists(users, email){
     for (id in users){
@@ -153,22 +158,26 @@ function getFriendsWhichVisitedPlace(placeName, placeAddress){
         FB.api('me/friends', { fields: 'id, first_name,picture', limit: 6 },function(response){
             console.log(response);
             var data = response.data;
-            data.forEach(function (friend) {
-                users.forEach(function (user) {
-                    if(user.fbid == friend.id){
-                        user.places.forEach(function (place) {
-                            if(place.name == placeName && place.address == placeAddress){
-                                var photoUrl = friend.picture.data.url;
-                                document.getElementById("place-friends").innerHTML+= "<img src='"+photoUrl+"' style='width: 30px; padding: 3px' title='"+user.name+"'>"
-                            }
-                        })
-
-                    }
-                })
-            })
+            processFriends(data);
 
         });
     })
+}
+
+function processFriends(data){
+	data.forEach(function (friend) {
+		users.forEach(function (user) {
+			if(user.fbid == friend.id){
+				user.places.forEach(function (place) {
+					if(place.name == placeName && place.address == placeAddress){
+						var photoUrl = friend.picture.data.url;
+						document.getElementById("place-friends").innerHTML+= "<img src='"+photoUrl+"' style='width: 30px; padding: 3px' title='"+user.name+"'>"
+					}
+				})
+
+			}
+		})
+	})
 }
 
 function performLoginActions() {

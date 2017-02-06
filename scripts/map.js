@@ -19,16 +19,7 @@ function initMap() {
     // Try HTML5 geolocation.
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
-            actualPosition = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
-            createMarkerOnMap(actualPosition, "You are here", "FFFFFF");
-
-            map.setCenter(actualPosition);
-            console.log("map initialized");
-
-
+			setMapPosition(map, position);
         }, function() {
             handleLocationError(true, infoWindow, map.getCenter());
         });
@@ -37,6 +28,17 @@ function initMap() {
         handleLocationError(false, infoWindow, map.getCenter());
     }
     initializeTypesRadioButtons();
+}
+
+function setMapPosition(map, position){
+	actualPosition = {
+		lat: position.coords.latitude,
+		lng: position.coords.longitude
+	};
+	createMarkerOnMap(actualPosition, "You are here", "FFFFFF");
+
+	map.setCenter(actualPosition);
+	console.log("map initialized");
 }
 
 function initializeTypesRadioButtons() {
